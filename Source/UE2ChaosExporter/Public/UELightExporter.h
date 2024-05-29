@@ -89,6 +89,13 @@ public:
 		float RayStartOffsetDepthScale;
 	};
 
+	struct LocalLightParameters
+	{
+		ELightUnits IntensityUnits;
+		float InverseExposureBlend;
+		float AttenuationRadius;
+	};
+
 	/// <summary>
 	/// Directional Light Parameters Struct
 	/// </summary>
@@ -152,9 +159,6 @@ public:
 		float SourceRadius;
 		float SoftSourceRadius;
 		float SourceLength;
-		ELightUnits IntensityUnits;
-		float InverseExposureBlend;
-		float AttenuationRadius;
 	};
 
 	/// <summary>
@@ -689,32 +693,24 @@ public:
 
 public:
 
-	TArray<ULightComponent*> GetCurrentLevelAllLight(TArray<AActor*> current_level_all_actors);
 	LightBaseParameters GetLightBaseParameters(ULightComponent* light);
 	LightParameters GetLightParameters(ULightComponent* light);
+	LocalLightParameters GetLocalLightParameters(ULocalLightComponent* light);
 
-	TArray<UDirectionalLightComponent*> GetCurrentLevelDirectionalLight(TArray<ULightComponent*> lighting_Array);
 	DirectionalLightParameters GetDirectionalLightParameters(UDirectionalLightComponent* light);
 
-	TArray<UPointLightComponent*> GetCurrentLevelPointlLight(TArray<ULightComponent*> lighting_Array);
 	PointLightParameters GetPointLightParameters(UPointLightComponent* light);
 
-	TArray<USpotLightComponent*> GetCurrentLevelSpotLight(TArray<ULightComponent*> lighting_Array);
 	SpotLightParameters GetSpotLightParameters(USpotLightComponent* light);
 
-	TArray<URectLightComponent*> GetCurrentLevelRectLight(TArray<ULightComponent*> lighting_Array);
 	RectLightParameters GetRectLightParameters(URectLightComponent* light);
 
-	TArray<USkyLightComponent*> GetCurrentLevelSkyLight(TArray<ULightComponent*> lighting_Array);
 	SkyLightParameters GetSkyLightParameters(USkyLightComponent* light);
 
-	TArray<UExponentialHeightFogComponent*> GetCurrentLevelHeightFog(TArray<AActor*> current_level_environment_lighting_actors);
 	HeightFogParameters GetHeightFogParameters(UExponentialHeightFogComponent* height_fog);
 
-	TArray<USkyAtmosphereComponent*> GetCurrentLevelSkyAtmosphereFog(TArray<AActor*> current_level_environment_lighting_actors);
 	SkyAtmosphereParameters GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere);
 
-	TArray<UPostProcessComponent*> GetCurrentLevelPostProcess(TArray<AActor*> current_level_environment_lighting_actors);
 	PostProcessParameters GetPostProcessParameters(UPostProcessComponent* post_prcess);
 	LenParameters GetLenParameters(UPostProcessComponent* post_prcess);
 	ColorGradingParameters GetColorGradingParameters(UPostProcessComponent* post_prcess);
@@ -727,7 +723,6 @@ public:
 	PostProcessVolumSettingsParameters GetPostProcessVolumSettingsParameters(UPostProcessComponent* post_prcess);
 	BrushSettingsParameters GetBrushSettingsParameters(AActor* actor);
 
-	TArray<UVolumetricCloudComponent*> GetCurrentLevelVolumetricCloud(TArray<AActor*> current_level_environment_lighting_actors);
 
 	
 private:

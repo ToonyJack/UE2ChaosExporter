@@ -3,24 +3,33 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include <algorithm>
+#include <iostream>
 #include "UObject/NoExportTypes.h"
 #include "PropertyID.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
-class UE2CHAOSEXPORTER_API UPropertyID : public UObject
+class UE2CHAOSEXPORTER_API FPropertyID
 {
-	GENERATED_BODY()
-
-protected:
-
-	uint32 m_value;
 
 public:
 
-	UPropertyID();
+	FPropertyID(uint32 value) : value_(value) {};
 
-	const uint32 GeneratePropertyID(uint32 min, uint32 max);
+	operator uint32() const { return value_; }
+
+	static TArray<FPropertyID> PropertyID_array;
+
+	static bool IsArrayEmpty(TArray<FPropertyID>& array) { return array.Num() == 0; }
+
+	static bool IsExist(TArray<FPropertyID>& array, FPropertyID propertyID) { return std::find(array.begin(), array.end(), propertyID) != array.end(); }
+
+	const static FPropertyID GeneratePropertyID(uint32 min, uint32 max);
+private:
+
+	uint32 value_;
 };

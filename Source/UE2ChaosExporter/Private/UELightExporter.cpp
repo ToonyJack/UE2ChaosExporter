@@ -7,19 +7,6 @@
 #include <PhysicsEngine/BoxElem.h>
 #include <Kismet/GameplayStatics.h>
 
-TArray<ULightComponent*> UUELightData::GetCurrentLevelAllLight(TArray<AActor*> current_level_all_actors)
-{
-	TArray<ULightComponent*> current_level_light_array;
-	for (AActor* current_actor : current_level_all_actors)
-	{
-		ULightComponent* Light = current_actor->FindComponentByClass<ULightComponent>();
-		if (Light)
-		{
-			current_level_light_array.Add(Light);
-		}
-	}
-	return current_level_light_array;
-}
 
 UUELightData::LightBaseParameters UUELightData::GetLightBaseParameters(ULightComponent* light)
 {
@@ -86,19 +73,17 @@ UUELightData::LightParameters UUELightData::GetLightParameters(ULightComponent* 
 	return light_params;
 }
 
-TArray<UDirectionalLightComponent*> UUELightData::GetCurrentLevelDirectionalLight(TArray<ULightComponent*> lighting_Array)
+UUELightData::LocalLightParameters UUELightData::GetLocalLightParameters(ULocalLightComponent* light)
 {
-	TArray<UDirectionalLightComponent*> current_level_directional_light_array;
-	for (ULightComponent* current_light : lighting_Array)
-	{
-		UDirectionalLightComponent* Light = Cast<UDirectionalLightComponent>(current_light);
-		if (Light)
-		{
-			current_level_directional_light_array.Add(Light);
-		}
-	}
-	return current_level_directional_light_array;
+	LocalLightParameters local_light_params;
+
+	local_light_params.IntensityUnits = light->IntensityUnits;
+	local_light_params.InverseExposureBlend = light->InverseExposureBlend;
+	local_light_params.AttenuationRadius = light->AttenuationRadius;
+
+	return local_light_params;
 }
+
 
 UUELightData::DirectionalLightParameters UUELightData::GetDirectionalLightParameters(UDirectionalLightComponent* light)
 {
@@ -145,20 +130,6 @@ UUELightData::DirectionalLightParameters UUELightData::GetDirectionalLightParame
 	return directional_light_params;
 }
 
-TArray<UPointLightComponent*> UUELightData::GetCurrentLevelPointlLight(TArray<ULightComponent*> lighting_Array)
-{
-	TArray<UPointLightComponent*> current_level_point_light_array;
-	for (ULightComponent* current_light : lighting_Array)
-	{
-		UPointLightComponent* Light = Cast<UPointLightComponent>(current_light);
-		if (Light)
-		{
-			current_level_point_light_array.Add(Light);
-		}
-	}
-	return current_level_point_light_array;
-}
-
 UUELightData::PointLightParameters UUELightData::GetPointLightParameters(UPointLightComponent* light)
 {
 	PointLightParameters point_light_params;
@@ -168,25 +139,8 @@ UUELightData::PointLightParameters UUELightData::GetPointLightParameters(UPointL
 	point_light_params.SourceRadius = light->SourceRadius;
 	point_light_params.SoftSourceRadius = light->SoftSourceRadius;
 	point_light_params.SourceLength = light->SourceLength;
-	point_light_params.IntensityUnits = light->IntensityUnits;
-	point_light_params.InverseExposureBlend = light->InverseExposureBlend;
-	point_light_params.AttenuationRadius = light->AttenuationRadius;
 
 	return point_light_params;
-}
-
-TArray<USpotLightComponent*> UUELightData::GetCurrentLevelSpotLight(TArray<ULightComponent*> lighting_Array)
-{
-	TArray<USpotLightComponent*> current_level_spot_light_array;
-	for (ULightComponent* current_light : lighting_Array)
-	{
-		USpotLightComponent* Light = Cast<USpotLightComponent>(current_light);
-		if (Light)
-		{
-			current_level_spot_light_array.Add(Light);
-		}
-	}
-	return current_level_spot_light_array;
 }
 
 UUELightData::SpotLightParameters UUELightData::GetSpotLightParameters(USpotLightComponent* light)
@@ -197,20 +151,6 @@ UUELightData::SpotLightParameters UUELightData::GetSpotLightParameters(USpotLigh
 	spot_light_params.OuterConeAngle = light->OuterConeAngle;
 
 	return spot_light_params;
-}
-
-TArray<URectLightComponent*> UUELightData::GetCurrentLevelRectLight(TArray<ULightComponent*> lighting_Array)
-{
-	TArray<URectLightComponent*> current_level_rect_light_array;
-	for (ULightComponent* current_light : lighting_Array)
-	{
-		URectLightComponent* Light = Cast<URectLightComponent>(current_light);
-		if (Light)
-		{
-			current_level_rect_light_array.Add(Light);
-		}
-	}
-	return current_level_rect_light_array;
 }
 
 UUELightData::RectLightParameters UUELightData::GetRectLightParameters(URectLightComponent* light)
@@ -224,20 +164,6 @@ UUELightData::RectLightParameters UUELightData::GetRectLightParameters(URectLigh
 	rect_light_params.SourceTexture = light->SourceTexture;
 
 	return rect_light_params;
-}
-
-TArray<USkyLightComponent*> UUELightData::GetCurrentLevelSkyLight(TArray<ULightComponent*> lighting_Array)
-{
-	TArray<USkyLightComponent*> current_level_sky_light_array;
-	for (ULightComponent* current_light : lighting_Array)
-	{
-		USkyLightComponent* Light = Cast<USkyLightComponent>(current_light);
-		if (Light)
-		{
-			current_level_sky_light_array.Add(Light);
-		}
-	}
-	return current_level_sky_light_array;
 }
 
 UUELightData::SkyLightParameters UUELightData::GetSkyLightParameters(USkyLightComponent* light)
@@ -267,20 +193,6 @@ UUELightData::SkyLightParameters UUELightData::GetSkyLightParameters(USkyLightCo
 	sky_light_params.bShowIlluminanceMeter = light->bShowIlluminanceMeter;
 
 	return sky_light_params;
-}
-
-TArray<UExponentialHeightFogComponent*> UUELightData::GetCurrentLevelHeightFog(TArray<AActor*> current_level_environment_lighting_actors)
-{
-	TArray<UExponentialHeightFogComponent*> current_level_height_fog_array;
-	for (AActor* current_actor : current_level_environment_lighting_actors)
-	{
-		UExponentialHeightFogComponent* height_fog = current_actor->FindComponentByClass<UExponentialHeightFogComponent>();
-		if (height_fog)
-		{
-			current_level_height_fog_array.Add(height_fog);
-		}
-	}
-	return current_level_height_fog_array;
 }
 
 UUELightData::HeightFogParameters UUELightData::GetHeightFogParameters(UExponentialHeightFogComponent* height_fog)
@@ -319,20 +231,6 @@ UUELightData::HeightFogParameters UUELightData::GetHeightFogParameters(UExponent
 	return height_fog_params;
 }
 
-TArray<USkyAtmosphereComponent*> UUELightData::GetCurrentLevelSkyAtmosphereFog(TArray<AActor*> current_level_environment_lighting_actors)
-{
-	TArray<USkyAtmosphereComponent*> current_level_sky_atmosphere_array;
-	for (AActor* current_actor : current_level_environment_lighting_actors)
-	{
-		USkyAtmosphereComponent* sky_atmosphere = current_actor->FindComponentByClass<USkyAtmosphereComponent>();
-		if (sky_atmosphere)
-		{
-			current_level_sky_atmosphere_array.Add(sky_atmosphere);
-		}
-	}
-	return current_level_sky_atmosphere_array;
-}
-
 UUELightData::SkyAtmosphereParameters UUELightData::GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere)
 {
 	SkyAtmosphereParameters sky_atmosphere_fog_params;
@@ -364,20 +262,6 @@ UUELightData::SkyAtmosphereParameters UUELightData::GetSkyAtmosphereParameters(U
 	sky_atmosphere_fog_params.AerialPerspectiveStartDepth = sky_atmosphere->AerialPerspectiveStartDepth;
 
 	return sky_atmosphere_fog_params;
-}
-
-TArray<UPostProcessComponent*> UUELightData::GetCurrentLevelPostProcess(TArray<AActor*> current_level_environment_lighting_actors)
-{
-	TArray<UPostProcessComponent*> current_level_post_prcess_array;
-	for (AActor* current_actor : current_level_environment_lighting_actors)
-	{
-		UPostProcessComponent* post_process = current_actor->FindComponentByClass<UPostProcessComponent>();
-		if (post_process)
-		{
-			current_level_post_prcess_array.Add(post_process);
-		}
-	}
-	return current_level_post_prcess_array;
 }
 
 UUELightData::PostProcessParameters UUELightData::GetPostProcessParameters(UPostProcessComponent* post_prcess)
@@ -918,9 +802,4 @@ UUELightData::BrushSettingsParameters UUELightData::GetBrushSettingsParameters(A
 	}
 
 	return brush_setting_params;
-}
-
-TArray<UVolumetricCloudComponent*> UUELightData::GetCurrentLevelVolumetricCloud(TArray<AActor*> current_level_environment_lighting_actors)
-{
-	return TArray<UVolumetricCloudComponent*>();
 }
