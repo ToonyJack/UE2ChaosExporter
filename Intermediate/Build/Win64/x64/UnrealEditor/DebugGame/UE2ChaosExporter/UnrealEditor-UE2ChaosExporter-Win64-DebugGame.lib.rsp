@@ -1,0 +1,12 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-UE2ChaosExporter-Win64-DebugGame.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"J:\UE_Project\C++\UEPlugins\Intermediate\Build\Win64\x64\UEPluginsEditor\DebugGame\UnrealEd\SharedPCH.UnrealEd.NonOptimized.Cpp20.h.obj"
+"J:\UE_Project\C++\UEPlugins\Plugins\UE2ChaosExporter\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\UE2ChaosExporter\Module.UE2ChaosExporter.cpp.obj"
+"J:\UE_Project\C++\UEPlugins\Plugins\UE2ChaosExporter\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\UE2ChaosExporter\Default.rc2.res"
+/OUT:"J:\UE_Project\C++\UEPlugins\Plugins\UE2ChaosExporter\Intermediate\Build\Win64\x64\UnrealEditor\DebugGame\UE2ChaosExporter\UnrealEditor-UE2ChaosExporter-Win64-DebugGame.lib"
