@@ -29,9 +29,9 @@ class FLightJsonData
 		FName Name;
 		FTransform Transform;
 		FLightBaseParameters LightBaseParams;
-		UUELightData::LightParameters LightParams;
-		UUELightData::LocalLightParameters LocalLightParams;
-		UUELightData::PointLightParameters PointLightParams;
+		FLightParameters LightParams;
+		FLocalLightParameters LocalLightParams;
+		FPointLightParameters PointLightParams;
 	};
 
 	struct SpotLightJsonData
@@ -41,10 +41,10 @@ class FLightJsonData
 		FName Name;
 		FTransform Transform;
 		FLightBaseParameters LightBaseParams;
-		UUELightData::LightParameters LightParams;
-		UUELightData::LocalLightParameters LocalLightParams;
-		UUELightData::PointLightParameters PointLightParams;
-		UUELightData::SpotLightParameters SpotLightParams;
+		FLightParameters LightParams;
+		FLocalLightParameters LocalLightParams;
+		FPointLightParameters PointLightParams;
+		FSpotLightParameters SpotLightParams;
 	};
 
 	struct RectLightJsonData
@@ -54,9 +54,9 @@ class FLightJsonData
 		FName Name;
 		FTransform Transform;
 		FLightBaseParameters LightBaseParams;
-		UUELightData::LightParameters LightParams;
-		UUELightData::LocalLightParameters LocalLightParams;
-		UUELightData::RectLightParameters RectLightParams;
+		FLightParameters LightParams;
+		FLocalLightParameters LocalLightParams;
+		FRectLightParameters RectLightParams;
 	};
 
 	struct SkyLightJsonData
@@ -66,7 +66,7 @@ class FLightJsonData
 		FName Name;
 		FTransform Transform;
 		FLightBaseParameters LightBaseParams;
-		UUELightData::SkyLightParameters SkyLightParams;
+		FSkyLightParameters SkyLightParams;
 	};
 
 	struct HeightFogJsonData
@@ -75,7 +75,7 @@ class FLightJsonData
 		FCommonImpl::EActorType Type = FCommonImpl::EActorType::HeightFog;
 		FName Name;
 		FTransform Transform;
-		UUELightData::HeightFogParameters HeightFogParams;
+		FHeightFogParameters HeightFogParams;
 	};
 
 	struct SkyAtmosphereJsonData
@@ -84,7 +84,7 @@ class FLightJsonData
 		FCommonImpl::EActorType Type = FCommonImpl::EActorType::SkyAtmosphere;
 		FName Name;
 		FTransform Transform;
-		UUELightData::SkyAtmosphereParameters SkyAtmosphereParams;
+		FSkyAtmosphereParameters SkyAtmosphereParams;
 	};
 
 	struct PostProcessJsonData
@@ -93,20 +93,20 @@ class FLightJsonData
 		FCommonImpl::EActorType Type = FCommonImpl::EActorType::PostPrcess;
 		FName Name;
 		FTransform Transform;
-		UUELightData::PostProcessParameters PostProcessParams;
+		//FPostProcessParameters PostProcessParams;
 	};
 
-	void WriteDirectionalLightJsonData(TArray<AActor*> actor_array, UUELightData* light_data, FPropertyID* propertyID, FString json_file_path, TSharedRef<FJsonObject> JsonObject);
+	void WriteDirectionalLightJsonData(TArray<AActor*> actor_array, FUELightData* light_data, FPropertyID* propertyID, FString json_file_path, TSharedRef<FJsonObject> JsonObject);
 
-	TMap<uint32, DirectionalLightJsonData> ConvertDirectionalLightDatatoJsonData(TArray<AActor*> actor_array, UUELightData* light_data, FPropertyID* propertyID);
+	TMap<uint32, DirectionalLightJsonData> ConvertDirectionalLightDatatoJsonData(TArray<AActor*> actor_array, FUELightData* light_data, FPropertyID* propertyID);
 
-	PointLightJsonData ConvertPointLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	SpotLightJsonData ConvertSpotLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	RectLightJsonData ConvertRectLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	SkyLightJsonData ConvertSkyLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	HeightFogJsonData ConvertHeightFogDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	SkyAtmosphereJsonData ConvertSkyAtmosphereDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
-	PostProcessJsonData ConvertPostProcessDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID);
+	PointLightJsonData ConvertPointLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	SpotLightJsonData ConvertSpotLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	RectLightJsonData ConvertRectLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	SkyLightJsonData ConvertSkyLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	HeightFogJsonData ConvertHeightFogDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	SkyAtmosphereJsonData ConvertSkyAtmosphereDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
+	PostProcessJsonData ConvertPostProcessDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID);
 };
 
 class FSceneInstanceJsonData

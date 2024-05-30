@@ -9,7 +9,7 @@
 
 TArray<uint32> FPropertyID::propertyID_array;
 
-void FLightJsonData::WriteDirectionalLightJsonData(TArray<AActor*> actor_array, UUELightData* light_data, FPropertyID* propertyID, FString json_file_path, TSharedRef<FJsonObject> JsonObject)
+void FLightJsonData::WriteDirectionalLightJsonData(TArray<AActor*> actor_array, FUELightData* light_data, FPropertyID* propertyID, FString json_file_path, TSharedRef<FJsonObject> JsonObject)
 {
 	TMap<uint32, DirectionalLightJsonData> directional_light_map = ConvertDirectionalLightDatatoJsonData(actor_array, light_data, propertyID);
 	for (const TPair<uint32, DirectionalLightJsonData>& Pair : directional_light_map)
@@ -18,7 +18,7 @@ void FLightJsonData::WriteDirectionalLightJsonData(TArray<AActor*> actor_array, 
 	}
 }
 
-TMap<uint32, FLightJsonData::DirectionalLightJsonData> FLightJsonData::ConvertDirectionalLightDatatoJsonData(TArray<AActor*> actor_array, UUELightData* light_data, FPropertyID* propertyID)
+TMap<uint32, FLightJsonData::DirectionalLightJsonData> FLightJsonData::ConvertDirectionalLightDatatoJsonData(TArray<AActor*> actor_array, FUELightData* light_data, FPropertyID* propertyID)
 {
 	TMap<uint32, DirectionalLightJsonData> directional_light_map;
 	for (AActor* actor : actor_array)
@@ -53,11 +53,11 @@ TMap<uint32, FLightJsonData::DirectionalLightJsonData> FLightJsonData::ConvertDi
 				}
 			}
 
-			FLightBaseParameters light_params = light_data->GetLightBaseParameters(directional_light);
-			//UUELightData::LightParameters light_params = light_data->GetLightParameters(directional_light);
-			//UUELightData::DirectionalLightParameters light_params = light_data->GetDirectionalLightParameters(directional_light);
+			//FLightBaseParameters light_params = light_data->GetLightBaseParameters(directional_light);
+			//FUELightData::LightParameters light_params = light_data->GetLightParameters(directional_light);
+			//FUELightData::DirectionalLightParameters light_params = light_data->GetDirectionalLightParameters(directional_light);
 
-			UStruct* testClass = FLightBaseParameters::StaticStruct();
+			//UStruct* testClass = FLightBaseParameters::StaticStruct();
 			
 		}
 		directional_light_map.Add(directional_light_json_data.propertyID, directional_light_json_data);
@@ -67,8 +67,8 @@ TMap<uint32, FLightJsonData::DirectionalLightJsonData> FLightJsonData::ConvertDi
 }
 
 
-
-FLightJsonData::PointLightJsonData FLightJsonData::ConvertPointLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+/*
+FLightJsonData::PointLightJsonData FLightJsonData::ConvertPointLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	PointLightJsonData point_light_json_data;
 
@@ -110,7 +110,7 @@ FLightJsonData::PointLightJsonData FLightJsonData::ConvertPointLightDatatoJsonDa
 }
 
 /*
-FLightJsonData::SpotLightJsonData FLightJsonData::ConvertSpotLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::SpotLightJsonData FLightJsonData::ConvertSpotLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 
@@ -150,7 +150,7 @@ FLightJsonData::SpotLightJsonData FLightJsonData::ConvertSpotLightDatatoJsonData
 	return directional_light_json_data;
 }
 
-FLightJsonData::RectLightJsonData FLightJsonData::ConvertRectLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::RectLightJsonData FLightJsonData::ConvertRectLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 
@@ -190,7 +190,7 @@ FLightJsonData::RectLightJsonData FLightJsonData::ConvertRectLightDatatoJsonData
 	return directional_light_json_data;
 }
 
-FLightJsonData::SkyLightJsonData FLightJsonData::ConvertSkyLightDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::SkyLightJsonData FLightJsonData::ConvertSkyLightDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 
@@ -230,7 +230,7 @@ FLightJsonData::SkyLightJsonData FLightJsonData::ConvertSkyLightDatatoJsonData(A
 	return directional_light_json_data;
 }
 
-FLightJsonData::HeightFogJsonData FLightJsonData::ConvertHeightFogDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::HeightFogJsonData FLightJsonData::ConvertHeightFogDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 
@@ -270,7 +270,7 @@ FLightJsonData::HeightFogJsonData FLightJsonData::ConvertHeightFogDatatoJsonData
 	return directional_light_json_data;
 }
 
-FLightJsonData::SkyAtmosphereJsonData FLightJsonData::ConvertSkyAtmosphereDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::SkyAtmosphereJsonData FLightJsonData::ConvertSkyAtmosphereDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 
@@ -310,7 +310,7 @@ FLightJsonData::SkyAtmosphereJsonData FLightJsonData::ConvertSkyAtmosphereDatato
 	return directional_light_json_data;
 }
 
-FLightJsonData::PostProcessJsonData FLightJsonData::ConvertPostProcessDatatoJsonData(AActor* actor, UUELightData* light_data, FPropertyID* propertyID)
+FLightJsonData::PostProcessJsonData FLightJsonData::ConvertPostProcessDatatoJsonData(AActor* actor, FUELightData* light_data, FPropertyID* propertyID)
 {
 	DirectionalLightJsonData directional_light_json_data;
 

@@ -19,11 +19,11 @@
 
 
 
-	/// <summary>
-	/// Common Light Parameter Struct
-	/// </summary>
-USTRUCT()
-struct FLightBaseParameters
+/// <summary>
+/// Common Light Parameter Class
+/// </summary>
+UCLASS()
+class FLightBaseParameters : public FUELightData
 {
 	GENERATED_BODY()
 
@@ -77,675 +77,1025 @@ struct FLightBaseParameters
 
 	UPROPERTY(EditAnywhere)
 	int SamplesPerPixel;
+
+public:
+
+	FLightBaseParameters* GetLightBaseParameters(ULightComponent* light);
 };
 
 UCLASS()
-class UE2CHAOSEXPORTER_API UUELightData : public UObject
+class FLightParameters : public FLightBaseParameters
 {
-	GENERATED_BODY()	
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	uint32 bUseTemperature;
+
+	UPROPERTY(EditAnywhere)
+	float Temperature;
+
+	UPROPERTY(EditAnywhere)
+	float SpecularScale;
+
+	UPROPERTY(EditAnywhere)
+	float MaxDrawDistance;
+
+	UPROPERTY(EditAnywhere)
+	float MaxDistanceFadeRange;
+
+	UPROPERTY(EditAnywhere)
+	float ShadowResolutionScale;
+
+	UPROPERTY(EditAnywhere)
+	float ShadowBias;
+
+	UPROPERTY(EditAnywhere)
+	float ShadowSlopeBias;
+
+	UPROPERTY(EditAnywhere)
+	float ShadowSharpen;
+
+	UPROPERTY(EditAnywhere)
+	float ContactShadowLength;
+
+	UPROPERTY(EditAnywhere)
+	float ContactShadowCastingIntensity;
+
+	UPROPERTY(EditAnywhere)
+	float ContactShadowNonCastingIntensity;
+
+	UPROPERTY(EditAnywhere)
+	uint32 ContactShadowLengthInWS;
+
+	UPROPERTY(EditAnywhere)
+	uint32 CastTranslucentShadows;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bCastShadowsFromCinematicObjectsOnly;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bForceCachedShadowsForMovablePrimitives;
+
+	UPROPERTY(EditAnywhere)
+	FLightingChannels LightingChannels;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UMaterialInterface> LightFunctionMaterial;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UMaterialInterface> StashedLightFunctionMaterial;
+
+	UPROPERTY(EditAnywhere)
+	FVector LightFunctionScale;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTextureLightProfile> IESTexture;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bUseIESBrightness;
+
+	UPROPERTY(EditAnywhere)
+	float IESBrightnessScale;
+
+	UPROPERTY(EditAnywhere)
+	float LightFunctionFadeDistance;
+
+	UPROPERTY(EditAnywhere)
+	float DisabledBrightness;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bEnableLightShaftBloom;
+
+	UPROPERTY(EditAnywhere)
+	float BloomScale;
+
+	UPROPERTY(EditAnywhere)
+	float BloomThreshold;
+
+	UPROPERTY(EditAnywhere)
+	float BloomMaxBrightness;
+
+	UPROPERTY(EditAnywhere)
+	FColor BloomTint;
+
+	UPROPERTY(EditAnywhere)
+	bool bUseRayTracedDistanceFieldShadows;
+
+	UPROPERTY(EditAnywhere)
+	float RayStartOffsetDepthScale;
+
+public:
+	FLightParameters* GetLightParameters(ULightComponent* light);
+};
+
+UCLASS()
+class FLocalLightParameters : public FLightParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	ELightUnits IntensityUnits;
+
+	UPROPERTY(EditAnywhere)
+	float InverseExposureBlend;
+
+	UPROPERTY(EditAnywhere)
+	float AttenuationRadius;
 
 public:
 
+	FLocalLightParameters* GetLocalLightParameters(ULocalLightComponent* light);
+};
 
-	
-	struct LightParameters
-	{
-		uint32 bUseTemperature;
-		float Temperature;
-		float SpecularScale;
-		float MaxDrawDistance;
-		float MaxDistanceFadeRange;
-		float ShadowResolutionScale;
-		float ShadowBias;
-		float ShadowSlopeBias;
-		float ShadowSharpen;
-		float ContactShadowLength;
-		float ContactShadowCastingIntensity;
-		float ContactShadowNonCastingIntensity;
-		uint32 ContactShadowLengthInWS;
-		uint32 CastTranslucentShadows;
-		uint32 bCastShadowsFromCinematicObjectsOnly;
-		uint32 bForceCachedShadowsForMovablePrimitives;
-		FLightingChannels LightingChannels;
-		TObjectPtr<class UMaterialInterface> LightFunctionMaterial;
-		TObjectPtr<class UMaterialInterface> StashedLightFunctionMaterial;
-		FVector LightFunctionScale;
-		TObjectPtr<class UTextureLightProfile> IESTexture;
-		uint32 bUseIESBrightness;
-		float IESBrightnessScale;
-		float LightFunctionFadeDistance;
-		float DisabledBrightness;
-		uint32 bEnableLightShaftBloom;
-		float BloomScale;
-		float BloomThreshold;
-		float BloomMaxBrightness;
-		FColor BloomTint;
-		bool bUseRayTracedDistanceFieldShadows;
-		float RayStartOffsetDepthScale;
-	};
+/// <summary>
+/// Directional Light Parameters Struct
+/// </summary>
+UCLASS()
+class FDirectionalLightParameters : public FLightParameters
+{
+	GENERATED_BODY()
 
-	struct LocalLightParameters
-	{
-		ELightUnits IntensityUnits;
-		float InverseExposureBlend;
-		float AttenuationRadius;
-	};
+	UPROPERTY(EditAnywhere)
+	float LightSourceAngle;
 
-	/// <summary>
-	/// Directional Light Parameters Struct
-	/// </summary>
-	struct DirectionalLightParameters
-	{
-		float LightSourceAngle;
-		float LightSourceSoftAngle;
-		float ShadowCascadeBiasDistribution;
-		uint32 bEnableLightShaftOcclusion;
-		float OcclusionMaskDarkness;
-		float OcclusionDepthRange;
-		FVector LightShaftOverrideDirection;
-		float DynamicShadowDistanceMovableLight;
-		float DynamicShadowDistanceStationaryLight;
-		int32 DynamicShadowCascades;
-		float CascadeDistributionExponent;
-		float CascadeTransitionFraction;
-		float ShadowDistanceFadeoutFraction;
-		uint32 bUseInsetShadowsForMovableObjects;
-		int32 FarShadowCascadeCount;
-		float FarShadowDistance;
-		float DistanceFieldShadowDistance;
-		float ShadowSourceAngleFactor;
-		float TraceDistance;
-		uint32 bAtmosphereSunLight;
-		int32 AtmosphereSunLightIndex;
-		FLinearColor AtmosphereSunDiskColorScale;
-		uint32 bPerPixelAtmosphereTransmittance;
-		uint32 bCastShadowsOnClouds;
-		uint32 bCastShadowsOnAtmosphere;
-		uint32 bCastCloudShadows;
-		float CloudShadowStrength;
-		float CloudShadowOnAtmosphereStrength;
-		float CloudShadowOnSurfaceStrength;
-		float CloudShadowDepthBias;
-		float CloudShadowExtent;
-		float CloudShadowMapResolutionScale;
-		float CloudShadowRaySampleCountScale;
-		FLinearColor CloudScatteredLuminanceScale;
-		uint32 bCastModulatedShadows;
-		FColor ModulatedShadowColor;
-		float ShadowAmount;
-	};
+	UPROPERTY(EditAnywhere)
+	float LightSourceSoftAngle;
 
-	/// <summary>
-	/// Spot Light Parameters Struct
-	/// </summary>
-	struct SpotLightParameters
-	{
-		float InnerConeAngle;
-		float OuterConeAngle;
-	};
+	UPROPERTY(EditAnywhere)
+	float ShadowCascadeBiasDistribution;
 
-	/// <summary>
-	/// Point Light Parameters Struct
-	/// </summary>
-	struct PointLightParameters
-	{
-		uint32 bUseInverseSquaredFalloff;
-		float LightFalloffExponent;
-		float SourceRadius;
-		float SoftSourceRadius;
-		float SourceLength;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bEnableLightShaftOcclusion;
 
-	/// <summary>
-	/// Rect Light Parameters Struct
-	/// </summary>
-	struct RectLightParameters
-	{
-		float SourceWidth;
-		float SourceHeight;
-		float BarnDoorAngle;
-		float BarnDoorLength;
-		TObjectPtr<class UTexture> SourceTexture;
-	};
+	UPROPERTY(EditAnywhere)
+	float OcclusionMaskDarkness;
 
-	/// <summary>
-	/// Sky Light Parameters Struct
-	/// </summary>
-	struct SkyLightParameters
-	{
-		bool bRealTimeCapture;
-		TEnumAsByte<enum ESkyLightSourceType> SourceType;
-		TObjectPtr<class UTextureCube> Cubemap;
-		float SourceCubemapAngle;
-		int32 CubemapResolution;
-		float SkyDistanceThreshold;
-		bool bCaptureEmissiveOnly;
-		bool bLowerHemisphereIsBlack;
-		FLinearColor LowerHemisphereColor;
-		float OcclusionMaxDistance;
-		float Contrast;
-		float OcclusionExponent;
-		float MinOcclusion;
-		FColor OcclusionTint;
-		uint32 bCloudAmbientOcclusion;
-		float CloudAmbientOcclusionStrength;
-		float CloudAmbientOcclusionExtent;
-		float CloudAmbientOcclusionMapResolutionScale;
-		float CloudAmbientOcclusionApertureScale;
-		TEnumAsByte<enum EOcclusionCombineMode> OcclusionCombineMode;
-		uint32 bShowIlluminanceMeter;
-	};
+	UPROPERTY(EditAnywhere)
+	float OcclusionDepthRange;
 
-	/// <summary>
-	/// Height Fog Parameters Struct
-	/// </summary>
-	struct HeightFogParameters
-	{
-		float FogDensity;
-		float FogHeightFalloff;
-		FExponentialHeightFogData SecondFogData;
-		FLinearColor FogInscatteringLuminance;
-		FLinearColor SkyAtmosphereAmbientContributionColorScale;
-		TObjectPtr<class UTextureCube> InscatteringColorCubemap;
-		float InscatteringColorCubemapAngle;
-		FLinearColor InscatteringTextureTint;
-		float FullyDirectionalInscatteringColorDistance;
-		float NonDirectionalInscatteringColorDistance;
-		float DirectionalInscatteringExponent;
-		float DirectionalInscatteringStartDistance;
-		FLinearColor DirectionalInscatteringLuminance;
-		float FogMaxOpacity;
-		float StartDistance;
-		float FogCutoffDistance;
-		bool bEnableVolumetricFog;
-		float VolumetricFogScatteringDistribution;
-		FColor VolumetricFogAlbedo;
-		FLinearColor VolumetricFogEmissive;
-		float VolumetricFogExtinctionScale;
-		float VolumetricFogDistance;
-		float VolumetricFogStartDistance;
-		float VolumetricFogNearFadeInDistance;
-		float VolumetricFogStaticLightingScatteringIntensity;
-		bool bOverrideLightColorsWithFogInscatteringColors;
-	};
+	UPROPERTY(EditAnywhere)
+	FVector LightShaftOverrideDirection;
 
-	/// <summary>
-	/// SkyAtmosphere Fog Parameters Struct
-	/// </summary>
-	struct SkyAtmosphereParameters
-	{
-		ESkyAtmosphereTransformMode TransformMode;
-		float BottomRadius;
-		FColor GroundAlbedo;
-		float AtmosphereHeight;
-		float MultiScatteringFactor;
-		float TraceSampleCountScale;
-		float RayleighScatteringScale;
-		FLinearColor RayleighScattering;
-		float RayleighExponentialDistribution;
-		float MieScatteringScale;
-		FLinearColor MieScattering;
-		float MieAbsorptionScale;
-		FLinearColor MieAbsorption;
-		float MieAnisotropy;
-		float MieExponentialDistribution;
-		float OtherAbsorptionScale;
-		FLinearColor OtherAbsorption;
-		FTentDistribution OtherTentDistribution;
-		FLinearColor SkyLuminanceFactor;
-		float AerialPespectiveViewDistanceScale;
-		float HeightFogContribution;
-		float TransmittanceMinLightElevationAngle;
-		float AerialPerspectiveStartDepth;
-	};
+	UPROPERTY(EditAnywhere)
+	float DynamicShadowDistanceMovableLight;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Lens Parameters
-	/// </summary>
-	struct BloomParameters
-	{
-		TEnumAsByte<enum EBloomMethod> BloomMethod;
-		float BloomIntensity;
-		float BloomThreshold;
-		float BloomConvolutionScatterDispersion;
-		TObjectPtr<class UTexture2D> BloomConvolutionTexture;
-		float BloomSizeScale;
-		float Bloom1Size;
-		float Bloom2Size;
-		float Bloom3Size;
-		float Bloom4Size;
-		float Bloom5Size;
-		float Bloom6Size;
-		FLinearColor Bloom1Tint;
-		FLinearColor Bloom2Tint;
-		FLinearColor Bloom3Tint;
-		FLinearColor Bloom4Tint;
-		FLinearColor Bloom5Tint;
-		FLinearColor Bloom6Tint;
-		float BloomConvolutionSize;
-		FVector2D BloomConvolutionCenterUV;
-		float BloomConvolutionPreFilterMin;
-		float BloomConvolutionPreFilterMax;
-		float BloomConvolutionPreFilterMult;
-		float BloomConvolutionBufferScale;
-	};
+	UPROPERTY(EditAnywhere)
+	float DynamicShadowDistanceStationaryLight;
 
-	struct ExposureParameters
-	{
-		TEnumAsByte<enum EAutoExposureMethod> AutoExposureMethod;
-		float AutoExposureCompensation;
-		bool bAutoExposureApplePhysicalCameraExposure;
-		TObjectPtr<class UCurveFloat> AutoExposureCompensationCurve;
-		TObjectPtr<class UTexture> AutoExposureMeteringMask;
-		float AutoExposureMaxEV100;
-		float AutoExposureMinEV100;
-		float AutoExposureSpeedUp;
-		float AutoExposureSpeedDown;
-		float AutoExposureLowPercent;
-		float AutoExposureHighPercent;
-		float AutoExposureHistogramMinEV100;
-		float AutoExposureHistogramMaxEV100;
-	};
+	UPROPERTY(EditAnywhere)
+	int32 DynamicShadowCascades;
 
-	struct ChromaticAberrationParameters
-	{
-		float SceneFringeIntensity;
-		float ChromaticAberrationStartOffset;
-	};
+	UPROPERTY(EditAnywhere)
+	float CascadeDistributionExponent;
 
-	struct DirtMaskParameters
-	{
-		TObjectPtr<class UTexture> DirtMaskTexture;
-		float DirtMaskIntensity;
-		FLinearColor DirtMaskTint;
-	};
+	UPROPERTY(EditAnywhere)
+	float CascadeTransitionFraction;
 
-	struct CameraParameters
-	{
-		float CameraShutterSpeed;
-		float CameraISO;
-		float DepthOfFieldFstop;
-		float DepthOfFieldMinFstop;
-		float DepthOfFieldBladeCount;
-	};
+	UPROPERTY(EditAnywhere)
+	float ShadowDistanceFadeoutFraction;
 
-	struct LensFlaresParameters
-	{
-		float LensFlaresIntensity;
-		FLinearColor LensFlaresTint;
-		float LensFlareBokehSize;
-		float LensFlareThreshold;
-		TObjectPtr<class UTexture> LensFlareBokehShape;
-		FLinearColor LensFlareTints[8];
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bUseInsetShadowsForMovableObjects;
 
-	struct ImageEffectsParameters
-	{
-		float VignetteIntensity;
-		float Sharpen;
-	};
+	UPROPERTY(EditAnywhere)
+	int32 FarShadowCascadeCount;
 
-	struct DepthofFieldParameters
-	{
-		float DepthOfFieldSensorWidth;
-		float DepthOfFieldSqueezeFactor;
-		float DepthOfFieldFocalDistance;
-		float DepthOfFieldDepthBlurAmount;
-		float DepthOfFieldDepthBlurRadius;
-	};
+	UPROPERTY(EditAnywhere)
+	float FarShadowDistance;
 
-	struct LenParameters
-	{
-		BloomParameters BloomParams;
-		ExposureParameters ExposureParams;
-		ChromaticAberrationParameters ChromaticAberrationParams;
-		DirtMaskParameters DirtMaskParams;
-		CameraParameters CameraParams;
-		LensFlaresParameters LensFlaresParams;
-		ImageEffectsParameters ImageEffectsParams;
-		DepthofFieldParameters DepthofFieldParams;
-	};
+	UPROPERTY(EditAnywhere)
+	float DistanceFieldShadowDistance;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Color Grading Parameters
-	/// </summary>
-	struct TemperatureParameters
-	{
-		TEnumAsByte<enum ETemperatureMethod> TemperatureType;
-		float WhiteTemp;
-		float WhiteTint;
-	};
+	UPROPERTY(EditAnywhere)
+	float ShadowSourceAngleFactor;
 
-	struct GlobalParameters
-	{
-		FVector4 ColorSaturation;
-		FVector4 ColorContrast;
-		FVector4 ColorGamma;
-		FVector4 ColorGain;
-		FVector4 ColorOffset;
-	};
+	UPROPERTY(EditAnywhere)
+	float TraceDistance;
 
-	struct ShadowsParameters
-	{
-		FVector4 ColorSaturationShadows;
-		FVector4 ColorContrastShadows;
-		FVector4 ColorGammaShadows;
-		FVector4 ColorGainShadows;
-		FVector4 ColorOffsetShadows;
-		float ColorCorrectionShadowsMax;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bAtmosphereSunLight;
 
-	struct MidtonesParameters
-	{
-		FVector4 ColorSaturationMidtones;
-		FVector4 ColorContrastMidtones;
-		FVector4 ColorGammaMidtones;
-		FVector4 ColorGainMidtones;
-		FVector4 ColorOffsetMidtones;
-	};
+	UPROPERTY(EditAnywhere)
+	int32 AtmosphereSunLightIndex;
 
-	struct HighlightsParameters
-	{
-		FVector4 ColorSaturationHighlights;
-		FVector4 ColorContrastHighlights;
-		FVector4 ColorGammaHighlights;
-		FVector4 ColorGainHighlights;
-		FVector4 ColorOffsetHighlights;
-		float ColorCorrectionHighlightsMin;
-		float ColorCorrectionHighlightsMax;
-	};
+	UPROPERTY(EditAnywhere)
+	FLinearColor AtmosphereSunDiskColorScale;
 
-	struct MiscParameters
-	{
-		float BlueCorrection;
-		float ExpandGamut;
-		float ToneCurveAmount;
-		FLinearColor SceneColorTint;
-		float ColorGradingIntensity;
-		TObjectPtr<class UTexture> ColorGradingLUT;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bPerPixelAtmosphereTransmittance;
 
-	struct ColorGradingParameters
-	{
-		TemperatureParameters TemperatureParams;
-		GlobalParameters GlobalParams;
-		ShadowsParameters ShadowsParams;
-		MidtonesParameters MidtonesParams;
-		HighlightsParameters HighlightsParams;
-		MiscParameters MiscParams;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bCastShadowsOnClouds;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Film Parameters
-	/// </summary>
-	struct FilmParameters
-	{
-		float FilmSlope;
-		float FilmToe;
-		float FilmShoulder;
-		float FilmBlackClip;
-		float FilmWhiteClip;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bCastShadowsOnAtmosphere;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Global Ilumination Parameters
-	/// </summary>
-	
-	struct LumenGlobalIluminationParameters
-	{
-		float LumenSceneLightingQuality;
-		float LumenSceneDetail;
-		float LumenSceneViewDistance;
-		float LumenSceneLightingUpdateSpeed;
-		float LumenFinalGatherQuality;
-		float LumenFinalGatherLightingUpdateSpeed;
-		float LumenMaxTraceDistance;
-		float LumenDiffuseColorBoost;
-		float LumenSkylightLeaking;
-		float LumenFullSkylightLeakingDistance;
-		float LumenSurfaceCacheResolution;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bCastCloudShadows;
 
-	struct RayTracingGlobalIluminationParameters
-	{
-		ERayTracingGlobalIlluminationType RayTracingGIType;
-		int32 RayTracingGIMaxBounces;
-		int32 RayTracingGISamplesPerPixel;
-	};
-	
-	struct GlobalIluminationParameters
-	{
-		TEnumAsByte<EDynamicGlobalIlluminationMethod::Type> DynamicGlobalIlluminationMethod;
-		LumenGlobalIluminationParameters LumenGIParams;
-		RayTracingGlobalIluminationParameters RayTracingGIParams;
-		FLinearColor IndirectLightingColor;
-		float IndirectLightingIntensity;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowStrength;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Reflections Parameters
-	/// </summary>
-	
-	struct LumenReflectionsParameters
-	{
-		float LumenReflectionQuality;
-		ELumenRayLightingModeOverride LumenRayLightingMode;
-		uint8 LumenFrontLayerTranslucencyReflections;
-		int32 LumenMaxReflectionBounces;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowOnAtmosphereStrength;
 
-	struct ScreenSpaceReflectionsParameters
-	{
-		float ScreenSpaceReflectionIntensity;
-		float ScreenSpaceReflectionQuality;
-		float ScreenSpaceReflectionMaxRoughness;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowOnSurfaceStrength;
 
-	struct RayTracingReflectionsParameters
-	{
-		float RayTracingReflectionsMaxRoughness;
-		int32 RayTracingReflectionsMaxBounces;
-		int32 RayTracingReflectionsSamplesPerPixel;
-		EReflectedAndRefractedRayTracedShadows RayTracingReflectionsShadows;
-		uint8 RayTracingReflectionsTranslucency;
-	};
-	
-	struct ReflectionsParameters
-	{
-		TEnumAsByte<EReflectionMethod::Type> ReflectionMethod;
-		LumenReflectionsParameters LumenReflecParams;
-		ScreenSpaceReflectionsParameters SSReflecParams;
-		RayTracingReflectionsParameters RayTracingReflecParams;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowDepthBias;
 
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Render Features Parameters
-	/// </summary>
-	
-	struct PostProcessMaterialsParameters
-	{
-		FWeightedBlendables WeightedBlendables;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowExtent;
 
-	struct AmbientCubemapParameters
-	{
-		FLinearColor AmbientCubemapTint;
-		float AmbientCubemapIntensity;
-		TObjectPtr<class UTextureCube> AmbientCubemap;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowMapResolutionScale;
 
-	struct AmbientOcclusionParameters
-	{
-		float AmbientOcclusionIntensity;
-		float AmbientOcclusionStaticFraction;
-		float AmbientOcclusionRadius;
-		uint32 AmbientOcclusionRadiusInWS;
-		float AmbientOcclusionFadeDistance;
-		float AmbientOcclusionFadeRadius;
-		float AmbientOcclusionPower;
-		float AmbientOcclusionBias;
-		float AmbientOcclusionQuality;
-		float AmbientOcclusionMipBlend;
-		float AmbientOcclusionMipScale;
-		float AmbientOcclusionMipThreshold;
-		float AmbientOcclusionTemporalBlendWeight;
-	};
+	UPROPERTY(EditAnywhere)
+	float CloudShadowRaySampleCountScale;
 
-	struct RayTracingAmbientOcclusionParameters
-	{
-		uint32 RayTracingAO;
-		int32 RayTracingAOSamplesPerPixel;
-		float RayTracingAOIntensity;
-		float RayTracingAORadius;
-	};
+	UPROPERTY(EditAnywhere)
+	FLinearColor CloudScatteredLuminanceScale;
 
-	struct MotionBlurParameters
-	{
-		float MotionBlurAmount;
-		float MotionBlurMax;
-		int32 MotionBlurTargetFPS;
-		float MotionBlurPerObjectSize;
-	};
+	UPROPERTY(EditAnywhere)
+	uint32 bCastModulatedShadows;
 
-	struct TranslucencyParameters
-	{
-		ETranslucencyType TranslucencyType;
-	};
+	UPROPERTY(EditAnywhere)
+	FColor ModulatedShadowColor;
 
-	struct RayTracingTranslucencyParameters
-	{
-		float RayTracingTranslucencyMaxRoughness;
-		int32 RayTracingTranslucencyRefractionRays;
-		int32 RayTracingTranslucencySamplesPerPixel;
-		EReflectedAndRefractedRayTracedShadows RayTracingTranslucencyShadows;
-		uint8 RayTracingTranslucencyRefraction;
-	};
-	
-	struct RenderFeaturesParameters
-	{
-		PostProcessMaterialsParameters PPMParams;
-		AmbientCubemapParameters CubemapParams;
-		AmbientOcclusionParameters AOParams;
-		RayTracingAmbientOcclusionParameters RTAOParams;
-		MotionBlurParameters MutionBlurParams;
-		TranslucencyParameters TranslucencyParams;
-		RayTracingTranslucencyParameters RTTranslucencyParams;
-	};
-
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Film Grain Parameters
-	/// </summary>
-	struct FilmGrainParameters
-	{
-		float FilmGrainIntensity;
-		float FilmGrainIntensityShadows;
-		float FilmGrainIntensityMidtones;
-		float FilmGrainIntensityHighlights;
-		float FilmGrainShadowsMax;
-		float FilmGrainHighlightsMin;
-		float FilmGrainHighlightsMax;
-		float FilmGrainTexelSize;
-		TObjectPtr<class UTexture2D> FilmGrainTexture;
-	};
-
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Path Tracing Parameters
-	/// </summary>
-	
-	struct LightingComponentsParameters
-	{
-		uint32 PathTracingIncludeEmissive;
-		uint32 PathTracingIncludeIndirectEmissive;
-		uint32 PathTracingIncludeDiffuse;
-		uint32 PathTracingIncludeIndirectDiffuse;
-		uint32 PathTracingIncludeSpecular;
-		uint32 PathTracingIncludeIndirectSpecular;
-		uint32 PathTracingIncludeVolume;
-		uint32 PathTracingIncludeIndirectVolume;
-	};
-	
-	struct PathTracingParameters
-	{
-		int32 PathTracingMaxBounces;
-		int32 PathTracingSamplesPerPixel;
-		float PathTracingMaxPathExposure;
-		uint32 PathTracingEnableReferenceDOF;
-		uint32 PathTracingEnableReferenceAtmosphere;
-		uint32 PathTracingEnableDenoiser;
-		LightingComponentsParameters LightComParams;
-	};
-
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Post Process Volum Settings Parameters
-	/// </summary>
-	struct PostProcessVolumSettingsParameters
-	{
-		float Priority;
-		float BlendRadius;
-		float BlendWeight;
-		uint32 bEnabled;
-		uint32 bUnbound;
-	};
-
-	/// <summary>
-	/// PostPrcess Parameters Struct
-	/// Categray Brush Settings Parameters
-	/// </summary>
-	struct BrushSettingsParameters
-	{
-		FVector Center;
-		FRotator Rotation;
-		float X;
-		float Y;
-		float Z;
-	};
-
-	/// <summary>
-	/// All PostPrcess Parameters Struct
-	/// </summary>
-	struct PostProcessParameters
-	{
-		LenParameters LenParams;
-		ColorGradingParameters ColorGradingParams;
-		FilmParameters FilmParams;
-		GlobalIluminationParameters GlobalIluminationParams;
-		ReflectionsParameters ReflectionsParams;
-		RenderFeaturesParameters RenderFeaturesParams;
-		FilmGrainParameters FilmGrainParams;
-		PathTracingParameters PathTracingParams;
-		PostProcessVolumSettingsParameters PostProcessVolumSettingsParams;
-		BrushSettingsParameters BrushSettingsParams;
-	};
+	UPROPERTY(EditAnywhere)
+	float ShadowAmount;
 
 public:
 
-	FLightBaseParameters GetLightBaseParameters(ULightComponent* light);
-	LightParameters GetLightParameters(ULightComponent* light);
-	LocalLightParameters GetLocalLightParameters(ULocalLightComponent* light);
+	FDirectionalLightParameters* GetDirectionalLightParameters(UDirectionalLightComponent* light);
+};
 
-	DirectionalLightParameters GetDirectionalLightParameters(UDirectionalLightComponent* light);
+/// <summary>
+/// Point Light Parameters Struct
+/// </summary>
+UCLASS()
+class FPointLightParameters : public FLocalLightParameters
+{
+	GENERATED_BODY()
 
-	PointLightParameters GetPointLightParameters(UPointLightComponent* light);
+	UPROPERTY(EditAnywhere)
+	uint32 bUseInverseSquaredFalloff;
 
-	SpotLightParameters GetSpotLightParameters(USpotLightComponent* light);
+	UPROPERTY(EditAnywhere)
+	float LightFalloffExponent;
 
-	RectLightParameters GetRectLightParameters(URectLightComponent* light);
+	UPROPERTY(EditAnywhere)
+	float SourceRadius;
 
-	SkyLightParameters GetSkyLightParameters(USkyLightComponent* light);
+	UPROPERTY(EditAnywhere)
+	float SoftSourceRadius;
 
-	HeightFogParameters GetHeightFogParameters(UExponentialHeightFogComponent* height_fog);
+	UPROPERTY(EditAnywhere)
+	float SourceLength;
 
-	SkyAtmosphereParameters GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere);
+public:
 
+	FPointLightParameters* GetPointLightParameters(UPointLightComponent* light);
+};
+
+/// <summary>
+/// Spot Light Parameters Struct
+/// </summary>
+UCLASS()
+class FSpotLightParameters : public FPointLightParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	float InnerConeAngle;
+
+	UPROPERTY(EditAnywhere)
+	float OuterConeAngle;
+
+public:
+
+	FSpotLightParameters* GetSpotLightParameters(USpotLightComponent* light);
+};
+
+/// <summary>
+/// Rect Light Parameters Struct
+/// </summary>
+UCLASS()
+class FRectLightParameters : public FLocalLightParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	float SourceWidth;
+
+	UPROPERTY(EditAnywhere)
+	float SourceHeight;
+
+	UPROPERTY(EditAnywhere)
+	float BarnDoorAngle;
+
+	UPROPERTY(EditAnywhere)
+	float BarnDoorLength;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTexture> SourceTexture;
+
+public:
+
+	FRectLightParameters* GetRectLightParameters(URectLightComponent* light);
+};
+
+/// <summary>
+/// Sky Light Parameters Struct
+/// </summary>
+UCLASS()
+class FSkyLightParameters : public FLightBaseParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	bool bRealTimeCapture;
+
+	UPROPERTY(EditAnywhere)
+	TEnumAsByte<enum ESkyLightSourceType> SourceType;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTextureCube> Cubemap;
+
+	UPROPERTY(EditAnywhere)
+	float SourceCubemapAngle;
+
+	UPROPERTY(EditAnywhere)
+	int32 CubemapResolution;
+
+	UPROPERTY(EditAnywhere)
+	float SkyDistanceThreshold;
+
+	UPROPERTY(EditAnywhere)
+	bool bCaptureEmissiveOnly;
+
+	UPROPERTY(EditAnywhere)
+	bool bLowerHemisphereIsBlack;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor LowerHemisphereColor;
+
+	UPROPERTY(EditAnywhere)
+	float OcclusionMaxDistance;
+
+	UPROPERTY(EditAnywhere)
+	float Contrast;
+
+	UPROPERTY(EditAnywhere)
+	float OcclusionExponent;
+
+	UPROPERTY(EditAnywhere)
+	float MinOcclusion;
+
+	UPROPERTY(EditAnywhere)
+	FColor OcclusionTint;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bCloudAmbientOcclusion;
+
+	UPROPERTY(EditAnywhere)
+	float CloudAmbientOcclusionStrength;
+
+	UPROPERTY(EditAnywhere)
+	float CloudAmbientOcclusionExtent;
+
+	UPROPERTY(EditAnywhere)
+	float CloudAmbientOcclusionMapResolutionScale;
+
+	UPROPERTY(EditAnywhere)
+	float CloudAmbientOcclusionApertureScale;
+
+	UPROPERTY(EditAnywhere)
+	TEnumAsByte<enum EOcclusionCombineMode> OcclusionCombineMode;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bShowIlluminanceMeter;
+
+public:
+
+	FSkyLightParameters* GetSkyLightParameters(USkyLightComponent* light);
+
+};
+
+/// <summary>
+/// Height Fog Parameters Struct
+/// </summary>
+UCLASS()
+class FHeightFogParameters : public FUELightData
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	float FogDensity;
+
+	UPROPERTY(EditAnywhere)
+	float FogHeightFalloff;
+
+	UPROPERTY(EditAnywhere)
+	FExponentialHeightFogData SecondFogData;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor FogInscatteringLuminance;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor SkyAtmosphereAmbientContributionColorScale;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<class UTextureCube> InscatteringColorCubemap;
+
+	UPROPERTY(EditAnywhere)
+	float InscatteringColorCubemapAngle;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor InscatteringTextureTint;
+
+	UPROPERTY(EditAnywhere)
+	float FullyDirectionalInscatteringColorDistance;
+
+	UPROPERTY(EditAnywhere)
+	float NonDirectionalInscatteringColorDistance;
+
+	UPROPERTY(EditAnywhere)
+	float DirectionalInscatteringExponent;
+
+	UPROPERTY(EditAnywhere)
+	float DirectionalInscatteringStartDistance;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor DirectionalInscatteringLuminance;
+
+	UPROPERTY(EditAnywhere)
+	float FogMaxOpacity;
+
+	UPROPERTY(EditAnywhere)
+	float StartDistance;
+
+	UPROPERTY(EditAnywhere)
+	float FogCutoffDistance;
+
+	UPROPERTY(EditAnywhere)
+	bool bEnableVolumetricFog;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogScatteringDistribution;
+
+	UPROPERTY(EditAnywhere)
+	FColor VolumetricFogAlbedo;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor VolumetricFogEmissive;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogExtinctionScale;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogDistance;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogStartDistance;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogNearFadeInDistance;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricFogStaticLightingScatteringIntensity;
+
+	UPROPERTY(EditAnywhere)
+	bool bOverrideLightColorsWithFogInscatteringColors;
+
+public:
+	
+	FHeightFogParameters* GetHeightFogParameters(UExponentialHeightFogComponent* height_fog);
+
+};
+
+/// <summary>
+/// SkyAtmosphere Fog Parameters Struct
+/// </summary>
+UCLASS()
+class FSkyAtmosphereParameters : public FUELightData
+{
+	GENERATED_BODY()
+
+public:
+	UPROPERTY(EditAnywhere)
+	ESkyAtmosphereTransformMode TransformMode;
+
+	UPROPERTY(EditAnywhere)
+	float BottomRadius;
+
+	UPROPERTY(EditAnywhere)
+	FColor GroundAlbedo;
+
+	UPROPERTY(EditAnywhere)
+	float AtmosphereHeight;
+
+	UPROPERTY(EditAnywhere)
+	float MultiScatteringFactor;
+
+	UPROPERTY(EditAnywhere)
+	float TraceSampleCountScale;
+
+	UPROPERTY(EditAnywhere)
+	float RayleighScatteringScale;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor RayleighScattering;
+
+	UPROPERTY(EditAnywhere)
+	float RayleighExponentialDistribution;
+
+	UPROPERTY(EditAnywhere)
+	float MieScatteringScale;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor MieScattering;
+
+	UPROPERTY(EditAnywhere)
+	float MieAbsorptionScale;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor MieAbsorption;
+
+	UPROPERTY(EditAnywhere)
+	float MieAnisotropy;
+
+	UPROPERTY(EditAnywhere)
+	float MieExponentialDistribution;
+
+	UPROPERTY(EditAnywhere)
+	float OtherAbsorptionScale;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor OtherAbsorption;
+
+	UPROPERTY(EditAnywhere)
+	FTentDistribution OtherTentDistribution;
+
+	UPROPERTY(EditAnywhere)
+	FLinearColor SkyLuminanceFactor;
+
+	UPROPERTY(EditAnywhere)
+	float AerialPespectiveViewDistanceScale;
+
+	UPROPERTY(EditAnywhere)
+	float HeightFogContribution;
+
+	UPROPERTY(EditAnywhere)
+	float TransmittanceMinLightElevationAngle;
+
+	UPROPERTY(EditAnywhere)
+	float AerialPerspectiveStartDepth;
+
+public:
+
+	FSkyAtmosphereParameters* GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere);
+};
+
+/*
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Lens Parameters
+/// </summary>
+class FBloomParameters
+{
+	TEnumAsByte<enum EBloomMethod> BloomMethod;
+	float BloomIntensity;
+	float BloomThreshold;
+	float BloomConvolutionScatterDispersion;
+	TObjectPtr<class UTexture2D> BloomConvolutionTexture;
+	float BloomSizeScale;
+	float Bloom1Size;
+	float Bloom2Size;
+	float Bloom3Size;
+	float Bloom4Size;
+	float Bloom5Size;
+	float Bloom6Size;
+	FLinearColor Bloom1Tint;
+	FLinearColor Bloom2Tint;
+	FLinearColor Bloom3Tint;
+	FLinearColor Bloom4Tint;
+	FLinearColor Bloom5Tint;
+	FLinearColor Bloom6Tint;
+	float BloomConvolutionSize;
+	FVector2D BloomConvolutionCenterUV;
+	float BloomConvolutionPreFilterMin;
+	float BloomConvolutionPreFilterMax;
+	float BloomConvolutionPreFilterMult;
+	float BloomConvolutionBufferScale;
+};
+
+class FExposureParameters
+{
+	TEnumAsByte<enum EAutoExposureMethod> AutoExposureMethod;
+	float AutoExposureCompensation;
+	bool bAutoExposureApplePhysicalCameraExposure;
+	TObjectPtr<class UCurveFloat> AutoExposureCompensationCurve;
+	TObjectPtr<class UTexture> AutoExposureMeteringMask;
+	float AutoExposureMaxEV100;
+	float AutoExposureMinEV100;
+	float AutoExposureSpeedUp;
+	float AutoExposureSpeedDown;
+	float AutoExposureLowPercent;
+	float AutoExposureHighPercent;
+	float AutoExposureHistogramMinEV100;
+	float AutoExposureHistogramMaxEV100;
+};
+
+class FChromaticAberrationParameters
+{
+	float SceneFringeIntensity;
+	float ChromaticAberrationStartOffset;
+};
+
+class FDirtMaskParameters
+{
+	TObjectPtr<class UTexture> DirtMaskTexture;
+	float DirtMaskIntensity;
+	FLinearColor DirtMaskTint;
+};
+
+class CameraParameters
+{
+	float CameraShutterSpeed;
+	float CameraISO;
+	float DepthOfFieldFstop;
+	float DepthOfFieldMinFstop;
+	float DepthOfFieldBladeCount;
+};
+
+class LensFlaresParameters
+{
+	float LensFlaresIntensity;
+	FLinearColor LensFlaresTint;
+	float LensFlareBokehSize;
+	float LensFlareThreshold;
+	TObjectPtr<class UTexture> LensFlareBokehShape;
+	FLinearColor LensFlareTints[8];
+};
+
+class ImageEffectsParameters
+{
+	float VignetteIntensity;
+	float Sharpen;
+};
+
+class DepthofFieldParameters
+{
+	float DepthOfFieldSensorWidth;
+	float DepthOfFieldSqueezeFactor;
+	float DepthOfFieldFocalDistance;
+	float DepthOfFieldDepthBlurAmount;
+	float DepthOfFieldDepthBlurRadius;
+};
+
+class LenParameters
+{
+	BloomParameters BloomParams;
+	ExposureParameters ExposureParams;
+	ChromaticAberrationParameters ChromaticAberrationParams;
+	DirtMaskParameters DirtMaskParams;
+	CameraParameters CameraParams;
+	LensFlaresParameters LensFlaresParams;
+	ImageEffectsParameters ImageEffectsParams;
+	DepthofFieldParameters DepthofFieldParams;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Color Grading Parameters
+/// </summary>
+struct TemperatureParameters
+{
+	TEnumAsByte<enum ETemperatureMethod> TemperatureType;
+	float WhiteTemp;
+	float WhiteTint;
+};
+
+struct GlobalParameters
+{
+	FVector4 ColorSaturation;
+	FVector4 ColorContrast;
+	FVector4 ColorGamma;
+	FVector4 ColorGain;
+	FVector4 ColorOffset;
+};
+
+struct ShadowsParameters
+{
+	FVector4 ColorSaturationShadows;
+	FVector4 ColorContrastShadows;
+	FVector4 ColorGammaShadows;
+	FVector4 ColorGainShadows;
+	FVector4 ColorOffsetShadows;
+	float ColorCorrectionShadowsMax;
+};
+
+struct MidtonesParameters
+{
+	FVector4 ColorSaturationMidtones;
+	FVector4 ColorContrastMidtones;
+	FVector4 ColorGammaMidtones;
+	FVector4 ColorGainMidtones;
+	FVector4 ColorOffsetMidtones;
+};
+
+struct HighlightsParameters
+{
+	FVector4 ColorSaturationHighlights;
+	FVector4 ColorContrastHighlights;
+	FVector4 ColorGammaHighlights;
+	FVector4 ColorGainHighlights;
+	FVector4 ColorOffsetHighlights;
+	float ColorCorrectionHighlightsMin;
+	float ColorCorrectionHighlightsMax;
+};
+
+struct MiscParameters
+{
+	float BlueCorrection;
+	float ExpandGamut;
+	float ToneCurveAmount;
+	FLinearColor SceneColorTint;
+	float ColorGradingIntensity;
+	TObjectPtr<class UTexture> ColorGradingLUT;
+};
+
+struct ColorGradingParameters
+{
+	TemperatureParameters TemperatureParams;
+	GlobalParameters GlobalParams;
+	ShadowsParameters ShadowsParams;
+	MidtonesParameters MidtonesParams;
+	HighlightsParameters HighlightsParams;
+	MiscParameters MiscParams;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Film Parameters
+/// </summary>
+struct FilmParameters
+{
+	float FilmSlope;
+	float FilmToe;
+	float FilmShoulder;
+	float FilmBlackClip;
+	float FilmWhiteClip;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Global Ilumination Parameters
+/// </summary>
+
+struct LumenGlobalIluminationParameters
+{
+	float LumenSceneLightingQuality;
+	float LumenSceneDetail;
+	float LumenSceneViewDistance;
+	float LumenSceneLightingUpdateSpeed;
+	float LumenFinalGatherQuality;
+	float LumenFinalGatherLightingUpdateSpeed;
+	float LumenMaxTraceDistance;
+	float LumenDiffuseColorBoost;
+	float LumenSkylightLeaking;
+	float LumenFullSkylightLeakingDistance;
+	float LumenSurfaceCacheResolution;
+};
+
+struct RayTracingGlobalIluminationParameters
+{
+	ERayTracingGlobalIlluminationType RayTracingGIType;
+	int32 RayTracingGIMaxBounces;
+	int32 RayTracingGISamplesPerPixel;
+};
+
+struct GlobalIluminationParameters
+{
+	TEnumAsByte<EDynamicGlobalIlluminationMethod::Type> DynamicGlobalIlluminationMethod;
+	LumenGlobalIluminationParameters LumenGIParams;
+	RayTracingGlobalIluminationParameters RayTracingGIParams;
+	FLinearColor IndirectLightingColor;
+	float IndirectLightingIntensity;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Reflections Parameters
+/// </summary>
+
+struct LumenReflectionsParameters
+{
+	float LumenReflectionQuality;
+	ELumenRayLightingModeOverride LumenRayLightingMode;
+	uint8 LumenFrontLayerTranslucencyReflections;
+	int32 LumenMaxReflectionBounces;
+};
+
+struct ScreenSpaceReflectionsParameters
+{
+	float ScreenSpaceReflectionIntensity;
+	float ScreenSpaceReflectionQuality;
+	float ScreenSpaceReflectionMaxRoughness;
+};
+
+struct RayTracingReflectionsParameters
+{
+	float RayTracingReflectionsMaxRoughness;
+	int32 RayTracingReflectionsMaxBounces;
+	int32 RayTracingReflectionsSamplesPerPixel;
+	EReflectedAndRefractedRayTracedShadows RayTracingReflectionsShadows;
+	uint8 RayTracingReflectionsTranslucency;
+};
+
+struct ReflectionsParameters
+{
+	TEnumAsByte<EReflectionMethod::Type> ReflectionMethod;
+	LumenReflectionsParameters LumenReflecParams;
+	ScreenSpaceReflectionsParameters SSReflecParams;
+	RayTracingReflectionsParameters RayTracingReflecParams;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Render Features Parameters
+/// </summary>
+
+struct PostProcessMaterialsParameters
+{
+	FWeightedBlendables WeightedBlendables;
+};
+
+struct AmbientCubemapParameters
+{
+	FLinearColor AmbientCubemapTint;
+	float AmbientCubemapIntensity;
+	TObjectPtr<class UTextureCube> AmbientCubemap;
+};
+
+struct AmbientOcclusionParameters
+{
+	float AmbientOcclusionIntensity;
+	float AmbientOcclusionStaticFraction;
+	float AmbientOcclusionRadius;
+	uint32 AmbientOcclusionRadiusInWS;
+	float AmbientOcclusionFadeDistance;
+	float AmbientOcclusionFadeRadius;
+	float AmbientOcclusionPower;
+	float AmbientOcclusionBias;
+	float AmbientOcclusionQuality;
+	float AmbientOcclusionMipBlend;
+	float AmbientOcclusionMipScale;
+	float AmbientOcclusionMipThreshold;
+	float AmbientOcclusionTemporalBlendWeight;
+};
+
+struct RayTracingAmbientOcclusionParameters
+{
+	uint32 RayTracingAO;
+	int32 RayTracingAOSamplesPerPixel;
+	float RayTracingAOIntensity;
+	float RayTracingAORadius;
+};
+
+struct MotionBlurParameters
+{
+	float MotionBlurAmount;
+	float MotionBlurMax;
+	int32 MotionBlurTargetFPS;
+	float MotionBlurPerObjectSize;
+};
+
+struct TranslucencyParameters
+{
+	ETranslucencyType TranslucencyType;
+};
+
+struct RayTracingTranslucencyParameters
+{
+	float RayTracingTranslucencyMaxRoughness;
+	int32 RayTracingTranslucencyRefractionRays;
+	int32 RayTracingTranslucencySamplesPerPixel;
+	EReflectedAndRefractedRayTracedShadows RayTracingTranslucencyShadows;
+	uint8 RayTracingTranslucencyRefraction;
+};
+
+struct RenderFeaturesParameters
+{
+	PostProcessMaterialsParameters PPMParams;
+	AmbientCubemapParameters CubemapParams;
+	AmbientOcclusionParameters AOParams;
+	RayTracingAmbientOcclusionParameters RTAOParams;
+	MotionBlurParameters MutionBlurParams;
+	TranslucencyParameters TranslucencyParams;
+	RayTracingTranslucencyParameters RTTranslucencyParams;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Film Grain Parameters
+/// </summary>
+struct FilmGrainParameters
+{
+	float FilmGrainIntensity;
+	float FilmGrainIntensityShadows;
+	float FilmGrainIntensityMidtones;
+	float FilmGrainIntensityHighlights;
+	float FilmGrainShadowsMax;
+	float FilmGrainHighlightsMin;
+	float FilmGrainHighlightsMax;
+	float FilmGrainTexelSize;
+	TObjectPtr<class UTexture2D> FilmGrainTexture;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Path Tracing Parameters
+/// </summary>
+
+struct LightingComponentsParameters
+{
+	uint32 PathTracingIncludeEmissive;
+	uint32 PathTracingIncludeIndirectEmissive;
+	uint32 PathTracingIncludeDiffuse;
+	uint32 PathTracingIncludeIndirectDiffuse;
+	uint32 PathTracingIncludeSpecular;
+	uint32 PathTracingIncludeIndirectSpecular;
+	uint32 PathTracingIncludeVolume;
+	uint32 PathTracingIncludeIndirectVolume;
+};
+
+struct PathTracingParameters
+{
+	int32 PathTracingMaxBounces;
+	int32 PathTracingSamplesPerPixel;
+	float PathTracingMaxPathExposure;
+	uint32 PathTracingEnableReferenceDOF;
+	uint32 PathTracingEnableReferenceAtmosphere;
+	uint32 PathTracingEnableDenoiser;
+	LightingComponentsParameters LightComParams;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Post Process Volum Settings Parameters
+/// </summary>
+struct PostProcessVolumSettingsParameters
+{
+	float Priority;
+	float BlendRadius;
+	float BlendWeight;
+	uint32 bEnabled;
+	uint32 bUnbound;
+};
+
+/// <summary>
+/// PostPrcess Parameters Struct
+/// Categray Brush Settings Parameters
+/// </summary>
+struct BrushSettingsParameters
+{
+	FVector Center;
+	FRotator Rotation;
+	float X;
+	float Y;
+	float Z;
+};
+
+/// <summary>
+/// All PostPrcess Parameters Struct
+/// </summary>
+struct PostProcessParameters
+{
+	LenParameters LenParams;
+	ColorGradingParameters ColorGradingParams;
+	FilmParameters FilmParams;
+	GlobalIluminationParameters GlobalIluminationParams;
+	ReflectionsParameters ReflectionsParams;
+	RenderFeaturesParameters RenderFeaturesParams;
+	FilmGrainParameters FilmGrainParams;
+	PathTracingParameters PathTracingParams;
+	PostProcessVolumSettingsParameters PostProcessVolumSettingsParams;
+	BrushSettingsParameters BrushSettingsParams;
+};
+*/
+
+
+UCLASS()
+class UE2CHAOSEXPORTER_API FUELightData
+{
+	GENERATED_BODY()
+
+public:
+
+	/*
 	PostProcessParameters GetPostProcessParameters(UPostProcessComponent* post_prcess);
 	LenParameters GetLenParameters(UPostProcessComponent* post_prcess);
 	ColorGradingParameters GetColorGradingParameters(UPostProcessComponent* post_prcess);
@@ -792,6 +1142,5 @@ private:
 	MotionBlurParameters GetMotionBlurParameters(UPostProcessComponent* post_prcess);
 	TranslucencyParameters GeTranslucencyParameters(UPostProcessComponent* post_prcess);
 	RayTracingTranslucencyParameters GetRayTracingTranslucencyParameters(UPostProcessComponent* post_prcess);
-
-	LightingComponentsParameters GetLightingComponentsParameters(UPostProcessComponent* post_prcess);
+	*/
 };

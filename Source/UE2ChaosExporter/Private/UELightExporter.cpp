@@ -8,262 +8,262 @@
 #include <Kismet/GameplayStatics.h>
 
 
-FLightBaseParameters UUELightData::GetLightBaseParameters(ULightComponent* light)
+FLightBaseParameters* FLightBaseParameters::GetLightBaseParameters(ULightComponent* light)
 {
-	FLightBaseParameters light_base_params;
+	FLightBaseParameters* light_base_params;
 
-	light_base_params.Intensity = light->Intensity;
-	light_base_params.LightColor = light->LightColor;
-	light_base_params.bAffectsWorld = light->bAffectsWorld;
-	light_base_params.CastShadows = light->CastShadows;
-	light_base_params.CastStaticShadows = light->CastStaticShadows;
-	light_base_params.CastDynamicShadows = light->CastDynamicShadows;
-	light_base_params.bAffectTranslucentLighting = light->bAffectTranslucentLighting;
-	light_base_params.bTransmission = light->bTransmission;
-	light_base_params.bCastVolumetricShadow = light->bCastVolumetricShadow;
-	light_base_params.bCastDeepShadow = light->bCastDeepShadow;
-	light_base_params.CastRaytracedShadow = light->CastRaytracedShadow;
-	light_base_params.bAffectReflection = light->bAffectReflection;
-	light_base_params.bAffectGlobalIllumination = light->bAffectGlobalIllumination;
-	light_base_params.DeepShadowLayerDistribution = light->DeepShadowLayerDistribution;
-	light_base_params.IndirectLightingIntensity = light->IndirectLightingIntensity;
-	light_base_params.VolumetricScatteringIntensity = light->VolumetricScatteringIntensity;
-	light_base_params.SamplesPerPixel = light->SamplesPerPixel;
+	light_base_params->Intensity = light->Intensity;
+	light_base_params->LightColor = light->LightColor;
+	light_base_params->bAffectsWorld = light->bAffectsWorld;
+	light_base_params->CastShadows = light->CastShadows;
+	light_base_params->CastStaticShadows = light->CastStaticShadows;
+	light_base_params->CastDynamicShadows = light->CastDynamicShadows;
+	light_base_params->bAffectTranslucentLighting = light->bAffectTranslucentLighting;
+	light_base_params->bTransmission = light->bTransmission;
+	light_base_params->bCastVolumetricShadow = light->bCastVolumetricShadow;
+	light_base_params->bCastDeepShadow = light->bCastDeepShadow;
+	light_base_params->CastRaytracedShadow = light->CastRaytracedShadow;
+	light_base_params->bAffectReflection = light->bAffectReflection;
+	light_base_params->bAffectGlobalIllumination = light->bAffectGlobalIllumination;
+	light_base_params->DeepShadowLayerDistribution = light->DeepShadowLayerDistribution;
+	light_base_params->IndirectLightingIntensity = light->IndirectLightingIntensity;
+	light_base_params->VolumetricScatteringIntensity = light->VolumetricScatteringIntensity;
+	light_base_params->SamplesPerPixel = light->SamplesPerPixel;
 
 	return light_base_params;
 }
 
-UUELightData::LightParameters UUELightData::GetLightParameters(ULightComponent* light)
+FLightParameters* FLightParameters::GetLightParameters(ULightComponent* light)
 {
-	LightParameters light_params;
+	FLightParameters* light_params;
 
-	light_params.bUseTemperature = light->bUseTemperature;
-	light_params.Temperature = light->Temperature;
-	light_params.SpecularScale = light->SpecularScale;
-	light_params.MaxDrawDistance = light->MaxDrawDistance;
-	light_params.MaxDistanceFadeRange = light->MaxDistanceFadeRange;
-	light_params.ShadowResolutionScale = light->ShadowResolutionScale;
-	light_params.ShadowBias = light->ShadowBias;
-	light_params.ShadowSlopeBias = light->ShadowSlopeBias;
-	light_params.ShadowSharpen = light->ShadowSharpen;
-	light_params.ContactShadowLength = light->ContactShadowLength;
-	light_params.ContactShadowCastingIntensity = light->ContactShadowCastingIntensity;
-	light_params.ContactShadowNonCastingIntensity = light->ContactShadowNonCastingIntensity;
-	light_params.ContactShadowLengthInWS = light->ContactShadowLengthInWS;
-	light_params.CastTranslucentShadows = light->CastTranslucentShadows;
-	light_params.bCastShadowsFromCinematicObjectsOnly = light->bCastShadowsFromCinematicObjectsOnly;
-	light_params.bForceCachedShadowsForMovablePrimitives = light->bForceCachedShadowsForMovablePrimitives;
-	light_params.LightingChannels = light->LightingChannels;
-	light_params.LightFunctionMaterial = light->LightFunctionMaterial;
-	light_params.StashedLightFunctionMaterial = light->StashedLightFunctionMaterial;
-	light_params.LightFunctionScale = light->LightFunctionScale;
-	light_params.IESTexture = light->IESTexture;
-	light_params.bUseIESBrightness = light->bUseIESBrightness;
-	light_params.IESBrightnessScale = light->IESBrightnessScale;
-	light_params.LightFunctionFadeDistance = light->LightFunctionFadeDistance;
-	light_params.DisabledBrightness = light->DisabledBrightness;
-	light_params.bEnableLightShaftBloom = light->bEnableLightShaftBloom;
-	light_params.BloomScale = light->BloomScale;
-	light_params.BloomThreshold = light->BloomThreshold;
-	light_params.BloomMaxBrightness = light->BloomMaxBrightness;
-	light_params.BloomTint = light->BloomTint;
-	light_params.bUseRayTracedDistanceFieldShadows = light->bUseRayTracedDistanceFieldShadows;
-	light_params.RayStartOffsetDepthScale = light->RayStartOffsetDepthScale;
+	light_params->bUseTemperature = light->bUseTemperature;
+	light_params->Temperature = light->Temperature;
+	light_params->SpecularScale = light->SpecularScale;
+	light_params->MaxDrawDistance = light->MaxDrawDistance;
+	light_params->MaxDistanceFadeRange = light->MaxDistanceFadeRange;
+	light_params->ShadowResolutionScale = light->ShadowResolutionScale;
+	light_params->ShadowBias = light->ShadowBias;
+	light_params->ShadowSlopeBias = light->ShadowSlopeBias;
+	light_params->ShadowSharpen = light->ShadowSharpen;
+	light_params->ContactShadowLength = light->ContactShadowLength;
+	light_params->ContactShadowCastingIntensity = light->ContactShadowCastingIntensity;
+	light_params->ContactShadowNonCastingIntensity = light->ContactShadowNonCastingIntensity;
+	light_params->ContactShadowLengthInWS = light->ContactShadowLengthInWS;
+	light_params->CastTranslucentShadows = light->CastTranslucentShadows;
+	light_params->bCastShadowsFromCinematicObjectsOnly = light->bCastShadowsFromCinematicObjectsOnly;
+	light_params->bForceCachedShadowsForMovablePrimitives = light->bForceCachedShadowsForMovablePrimitives;
+	light_params->LightingChannels = light->LightingChannels;
+	light_params->LightFunctionMaterial = light->LightFunctionMaterial;
+	light_params->StashedLightFunctionMaterial = light->StashedLightFunctionMaterial;
+	light_params->LightFunctionScale = light->LightFunctionScale;
+	light_params->IESTexture = light->IESTexture;
+	light_params->bUseIESBrightness = light->bUseIESBrightness;
+	light_params->IESBrightnessScale = light->IESBrightnessScale;
+	light_params->LightFunctionFadeDistance = light->LightFunctionFadeDistance;
+	light_params->DisabledBrightness = light->DisabledBrightness;
+	light_params->bEnableLightShaftBloom = light->bEnableLightShaftBloom;
+	light_params->BloomScale = light->BloomScale;
+	light_params->BloomThreshold = light->BloomThreshold;
+	light_params->BloomMaxBrightness = light->BloomMaxBrightness;
+	light_params->BloomTint = light->BloomTint;
+	light_params->bUseRayTracedDistanceFieldShadows = light->bUseRayTracedDistanceFieldShadows;
+	light_params->RayStartOffsetDepthScale = light->RayStartOffsetDepthScale;
 
 	return light_params;
 }
 
-UUELightData::LocalLightParameters UUELightData::GetLocalLightParameters(ULocalLightComponent* light)
+FLocalLightParameters* FLocalLightParameters::GetLocalLightParameters(ULocalLightComponent* light)
 {
-	LocalLightParameters local_light_params;
+	FLocalLightParameters* local_light_params;
 
-	local_light_params.IntensityUnits = light->IntensityUnits;
-	local_light_params.InverseExposureBlend = light->InverseExposureBlend;
-	local_light_params.AttenuationRadius = light->AttenuationRadius;
+	local_light_params->IntensityUnits = light->IntensityUnits;
+	local_light_params->InverseExposureBlend = light->InverseExposureBlend;
+	local_light_params->AttenuationRadius = light->AttenuationRadius;
 
 	return local_light_params;
 }
 
 
-UUELightData::DirectionalLightParameters UUELightData::GetDirectionalLightParameters(UDirectionalLightComponent* light)
+FDirectionalLightParameters* FDirectionalLightParameters::GetDirectionalLightParameters(UDirectionalLightComponent* light)
 {
-	DirectionalLightParameters directional_light_params;
+	FDirectionalLightParameters* directional_light_params;
 
-	directional_light_params.LightSourceAngle = light->LightSourceAngle;
-	directional_light_params.LightSourceSoftAngle = light->LightSourceSoftAngle;
-	directional_light_params.ShadowCascadeBiasDistribution = light->ShadowCascadeBiasDistribution;
-	directional_light_params.bEnableLightShaftOcclusion = light->bEnableLightShaftOcclusion;
-	directional_light_params.OcclusionMaskDarkness = light->OcclusionMaskDarkness;
-	directional_light_params.OcclusionDepthRange = light->OcclusionDepthRange;
-	directional_light_params.LightShaftOverrideDirection = light->LightShaftOverrideDirection;
-	directional_light_params.DynamicShadowDistanceMovableLight = light->DynamicShadowDistanceMovableLight;
-	directional_light_params.DynamicShadowDistanceStationaryLight = light->DynamicShadowDistanceStationaryLight;
-	directional_light_params.DynamicShadowCascades = light->DynamicShadowCascades;
-	directional_light_params.CascadeDistributionExponent = light->CascadeDistributionExponent;
-	directional_light_params.CascadeTransitionFraction = light->CascadeTransitionFraction;
-	directional_light_params.ShadowDistanceFadeoutFraction = light->ShadowDistanceFadeoutFraction;
-	directional_light_params.bUseInsetShadowsForMovableObjects = light->bUseInsetShadowsForMovableObjects;
-	directional_light_params.FarShadowCascadeCount = light->FarShadowCascadeCount;
-	directional_light_params.FarShadowDistance = light->FarShadowDistance;
-	directional_light_params.DistanceFieldShadowDistance = light->DistanceFieldShadowDistance;
-	directional_light_params.ShadowSourceAngleFactor = light->ShadowSourceAngleFactor;
-	directional_light_params.TraceDistance = light->TraceDistance;
-	directional_light_params.bAtmosphereSunLight = light->bAtmosphereSunLight;
-	directional_light_params.AtmosphereSunLightIndex = light->AtmosphereSunLightIndex;
-	directional_light_params.AtmosphereSunDiskColorScale = light->AtmosphereSunDiskColorScale;
-	directional_light_params.bPerPixelAtmosphereTransmittance = light->bPerPixelAtmosphereTransmittance;
-	directional_light_params.bCastShadowsOnClouds = light->bCastShadowsOnClouds;
-	directional_light_params.bCastShadowsOnAtmosphere = light->bCastShadowsOnAtmosphere;
-	directional_light_params.bCastCloudShadows = light->bCastCloudShadows;
-	directional_light_params.CloudShadowStrength = light->CloudShadowStrength;
-	directional_light_params.CloudShadowOnAtmosphereStrength = light->CloudShadowOnAtmosphereStrength;
-	directional_light_params.CloudShadowOnSurfaceStrength = light->CloudShadowOnSurfaceStrength;
-	directional_light_params.CloudShadowDepthBias = light->CloudShadowDepthBias;
-	directional_light_params.CloudShadowExtent = light->CloudShadowExtent;
-	directional_light_params.CloudShadowMapResolutionScale = light->CloudShadowMapResolutionScale;
-	directional_light_params.CloudShadowRaySampleCountScale = light->CloudShadowRaySampleCountScale;
-	directional_light_params.CloudScatteredLuminanceScale = light->CloudScatteredLuminanceScale;
-	directional_light_params.bCastModulatedShadows = light->bCastModulatedShadows;
-	directional_light_params.ModulatedShadowColor = light->ModulatedShadowColor;
-	directional_light_params.ShadowAmount = light->ShadowAmount;
+	directional_light_params->LightSourceAngle = light->LightSourceAngle;
+	directional_light_params->LightSourceSoftAngle = light->LightSourceSoftAngle;
+	directional_light_params->ShadowCascadeBiasDistribution = light->ShadowCascadeBiasDistribution;
+	directional_light_params->bEnableLightShaftOcclusion = light->bEnableLightShaftOcclusion;
+	directional_light_params->OcclusionMaskDarkness = light->OcclusionMaskDarkness;
+	directional_light_params->OcclusionDepthRange = light->OcclusionDepthRange;
+	directional_light_params->LightShaftOverrideDirection = light->LightShaftOverrideDirection;
+	directional_light_params->DynamicShadowDistanceMovableLight = light->DynamicShadowDistanceMovableLight;
+	directional_light_params->DynamicShadowDistanceStationaryLight = light->DynamicShadowDistanceStationaryLight;
+	directional_light_params->DynamicShadowCascades = light->DynamicShadowCascades;
+	directional_light_params->CascadeDistributionExponent = light->CascadeDistributionExponent;
+	directional_light_params->CascadeTransitionFraction = light->CascadeTransitionFraction;
+	directional_light_params->ShadowDistanceFadeoutFraction = light->ShadowDistanceFadeoutFraction;
+	directional_light_params->bUseInsetShadowsForMovableObjects = light->bUseInsetShadowsForMovableObjects;
+	directional_light_params->FarShadowCascadeCount = light->FarShadowCascadeCount;
+	directional_light_params->FarShadowDistance = light->FarShadowDistance;
+	directional_light_params->DistanceFieldShadowDistance = light->DistanceFieldShadowDistance;
+	directional_light_params->ShadowSourceAngleFactor = light->ShadowSourceAngleFactor;
+	directional_light_params->TraceDistance = light->TraceDistance;
+	directional_light_params->bAtmosphereSunLight = light->bAtmosphereSunLight;
+	directional_light_params->AtmosphereSunLightIndex = light->AtmosphereSunLightIndex;
+	directional_light_params->AtmosphereSunDiskColorScale = light->AtmosphereSunDiskColorScale;
+	directional_light_params->bPerPixelAtmosphereTransmittance = light->bPerPixelAtmosphereTransmittance;
+	directional_light_params->bCastShadowsOnClouds = light->bCastShadowsOnClouds;
+	directional_light_params->bCastShadowsOnAtmosphere = light->bCastShadowsOnAtmosphere;
+	directional_light_params->bCastCloudShadows = light->bCastCloudShadows;
+	directional_light_params->CloudShadowStrength = light->CloudShadowStrength;
+	directional_light_params->CloudShadowOnAtmosphereStrength = light->CloudShadowOnAtmosphereStrength;
+	directional_light_params->CloudShadowOnSurfaceStrength = light->CloudShadowOnSurfaceStrength;
+	directional_light_params->CloudShadowDepthBias = light->CloudShadowDepthBias;
+	directional_light_params->CloudShadowExtent = light->CloudShadowExtent;
+	directional_light_params->CloudShadowMapResolutionScale = light->CloudShadowMapResolutionScale;
+	directional_light_params->CloudShadowRaySampleCountScale = light->CloudShadowRaySampleCountScale;
+	directional_light_params->CloudScatteredLuminanceScale = light->CloudScatteredLuminanceScale;
+	directional_light_params->bCastModulatedShadows = light->bCastModulatedShadows;
+	directional_light_params->ModulatedShadowColor = light->ModulatedShadowColor;
+	directional_light_params->ShadowAmount = light->ShadowAmount;
 
 	return directional_light_params;
 }
 
-UUELightData::PointLightParameters UUELightData::GetPointLightParameters(UPointLightComponent* light)
+FPointLightParameters* FPointLightParameters::GetPointLightParameters(UPointLightComponent* light)
 {
-	PointLightParameters point_light_params;
+	FPointLightParameters* point_light_params;
 
-	point_light_params.bUseInverseSquaredFalloff = light->bUseInverseSquaredFalloff;
-	point_light_params.LightFalloffExponent = light->LightFalloffExponent;
-	point_light_params.SourceRadius = light->SourceRadius;
-	point_light_params.SoftSourceRadius = light->SoftSourceRadius;
-	point_light_params.SourceLength = light->SourceLength;
+	point_light_params->bUseInverseSquaredFalloff = light->bUseInverseSquaredFalloff;
+	point_light_params->LightFalloffExponent = light->LightFalloffExponent;
+	point_light_params->SourceRadius = light->SourceRadius;
+	point_light_params->SoftSourceRadius = light->SoftSourceRadius;
+	point_light_params->SourceLength = light->SourceLength;
 
 	return point_light_params;
 }
 
-UUELightData::SpotLightParameters UUELightData::GetSpotLightParameters(USpotLightComponent* light)
+FSpotLightParameters* FSpotLightParameters::GetSpotLightParameters(USpotLightComponent* light)
 {
-	SpotLightParameters spot_light_params;
+	FSpotLightParameters* spot_light_params;
 
-	spot_light_params.InnerConeAngle = light->InnerConeAngle;
-	spot_light_params.OuterConeAngle = light->OuterConeAngle;
+	spot_light_params->InnerConeAngle = light->InnerConeAngle;
+	spot_light_params->OuterConeAngle = light->OuterConeAngle;
 
 	return spot_light_params;
 }
 
-UUELightData::RectLightParameters UUELightData::GetRectLightParameters(URectLightComponent* light)
+FRectLightParameters* FRectLightParameters::GetRectLightParameters(URectLightComponent* light)
 {
-	RectLightParameters rect_light_params;
+	FRectLightParameters* rect_light_params;
 
-	rect_light_params.SourceWidth = light->SourceWidth;
-	rect_light_params.SourceHeight = light->SourceHeight;
-	rect_light_params.BarnDoorAngle = light->BarnDoorAngle;
-	rect_light_params.BarnDoorLength = light->BarnDoorLength;
-	rect_light_params.SourceTexture = light->SourceTexture;
+	rect_light_params->SourceWidth = light->SourceWidth;
+	rect_light_params->SourceHeight = light->SourceHeight;
+	rect_light_params->BarnDoorAngle = light->BarnDoorAngle;
+	rect_light_params->BarnDoorLength = light->BarnDoorLength;
+	rect_light_params->SourceTexture = light->SourceTexture;
 
 	return rect_light_params;
 }
 
-UUELightData::SkyLightParameters UUELightData::GetSkyLightParameters(USkyLightComponent* light)
+FSkyLightParameters* FSkyLightParameters::GetSkyLightParameters(USkyLightComponent* light)
 {
-	SkyLightParameters sky_light_params;
+	FSkyLightParameters* sky_light_params;
 
-	sky_light_params.bRealTimeCapture = light->bRealTimeCapture;
-	sky_light_params.SourceType = light->SourceType;
-	sky_light_params.Cubemap = light->Cubemap;
-	sky_light_params.SourceCubemapAngle = light->SourceCubemapAngle;
-	sky_light_params.CubemapResolution = light->CubemapResolution;
-	sky_light_params.SkyDistanceThreshold = light->SkyDistanceThreshold;
-	sky_light_params.bCaptureEmissiveOnly = light->bCaptureEmissiveOnly;
-	sky_light_params.bLowerHemisphereIsBlack = light->bLowerHemisphereIsBlack;
-	sky_light_params.LowerHemisphereColor = light->LowerHemisphereColor;
-	sky_light_params.OcclusionMaxDistance = light->OcclusionMaxDistance;
-	sky_light_params.Contrast = light->Contrast;
-	sky_light_params.OcclusionExponent = light->OcclusionExponent;
-	sky_light_params.MinOcclusion = light->MinOcclusion;
-	sky_light_params.OcclusionTint = light->OcclusionTint;
-	sky_light_params.bCloudAmbientOcclusion = light->bCloudAmbientOcclusion;
-	sky_light_params.CloudAmbientOcclusionStrength = light->CloudAmbientOcclusionStrength;
-	sky_light_params.CloudAmbientOcclusionExtent = light->CloudAmbientOcclusionExtent;
-	sky_light_params.CloudAmbientOcclusionMapResolutionScale = light->CloudAmbientOcclusionMapResolutionScale;
-	sky_light_params.CloudAmbientOcclusionApertureScale = light->CloudAmbientOcclusionApertureScale;
-	sky_light_params.OcclusionCombineMode = light->OcclusionCombineMode;
-	sky_light_params.bShowIlluminanceMeter = light->bShowIlluminanceMeter;
+	sky_light_params->bRealTimeCapture = light->bRealTimeCapture;
+	sky_light_params->SourceType = light->SourceType;
+	sky_light_params->Cubemap = light->Cubemap;
+	sky_light_params->SourceCubemapAngle = light->SourceCubemapAngle;
+	sky_light_params->CubemapResolution = light->CubemapResolution;
+	sky_light_params->SkyDistanceThreshold = light->SkyDistanceThreshold;
+	sky_light_params->bCaptureEmissiveOnly = light->bCaptureEmissiveOnly;
+	sky_light_params->bLowerHemisphereIsBlack = light->bLowerHemisphereIsBlack;
+	sky_light_params->LowerHemisphereColor = light->LowerHemisphereColor;
+	sky_light_params->OcclusionMaxDistance = light->OcclusionMaxDistance;
+	sky_light_params->Contrast = light->Contrast;
+	sky_light_params->OcclusionExponent = light->OcclusionExponent;
+	sky_light_params->MinOcclusion = light->MinOcclusion;
+	sky_light_params->OcclusionTint = light->OcclusionTint;
+	sky_light_params->bCloudAmbientOcclusion = light->bCloudAmbientOcclusion;
+	sky_light_params->CloudAmbientOcclusionStrength = light->CloudAmbientOcclusionStrength;
+	sky_light_params->CloudAmbientOcclusionExtent = light->CloudAmbientOcclusionExtent;
+	sky_light_params->CloudAmbientOcclusionMapResolutionScale = light->CloudAmbientOcclusionMapResolutionScale;
+	sky_light_params->CloudAmbientOcclusionApertureScale = light->CloudAmbientOcclusionApertureScale;
+	sky_light_params->OcclusionCombineMode = light->OcclusionCombineMode;
+	sky_light_params->bShowIlluminanceMeter = light->bShowIlluminanceMeter;
 
 	return sky_light_params;
 }
 
-UUELightData::HeightFogParameters UUELightData::GetHeightFogParameters(UExponentialHeightFogComponent* height_fog)
+FHeightFogParameters* FHeightFogParameters::GetHeightFogParameters(UExponentialHeightFogComponent* height_fog)
 {
-	HeightFogParameters height_fog_params;
+	FHeightFogParameters* height_fog_params;
 
-	height_fog_params.FogDensity = height_fog->FogDensity;
-	height_fog_params.FogHeightFalloff = height_fog->FogHeightFalloff;
-	height_fog_params.SecondFogData.FogDensity = height_fog->SecondFogData.FogDensity;
-	height_fog_params.SecondFogData.FogHeightFalloff = height_fog->SecondFogData.FogHeightFalloff;
-	height_fog_params.SecondFogData.FogHeightOffset = height_fog->SecondFogData.FogHeightOffset;
-	height_fog_params.FogInscatteringLuminance = height_fog->FogInscatteringLuminance;
-	height_fog_params.SkyAtmosphereAmbientContributionColorScale = height_fog->SkyAtmosphereAmbientContributionColorScale;
-	height_fog_params.InscatteringColorCubemap = height_fog->InscatteringColorCubemap;
-	height_fog_params.InscatteringColorCubemapAngle = height_fog->InscatteringColorCubemapAngle;
-	height_fog_params.InscatteringTextureTint = height_fog->InscatteringTextureTint;
-	height_fog_params.FullyDirectionalInscatteringColorDistance = height_fog->FullyDirectionalInscatteringColorDistance;
-	height_fog_params.NonDirectionalInscatteringColorDistance = height_fog->NonDirectionalInscatteringColorDistance;
-	height_fog_params.DirectionalInscatteringExponent = height_fog->DirectionalInscatteringExponent;
-	height_fog_params.DirectionalInscatteringStartDistance = height_fog->DirectionalInscatteringStartDistance;
-	height_fog_params.DirectionalInscatteringLuminance = height_fog->DirectionalInscatteringLuminance;
-	height_fog_params.FogMaxOpacity = height_fog->FogMaxOpacity;
-	height_fog_params.StartDistance = height_fog->StartDistance;
-	height_fog_params.FogCutoffDistance = height_fog->FogCutoffDistance;
-	height_fog_params.bEnableVolumetricFog = height_fog->bEnableVolumetricFog;
-	height_fog_params.VolumetricFogScatteringDistribution = height_fog->VolumetricFogScatteringDistribution;
-	height_fog_params.VolumetricFogAlbedo = height_fog->VolumetricFogAlbedo;
-	height_fog_params.VolumetricFogEmissive = height_fog->VolumetricFogEmissive;
-	height_fog_params.VolumetricFogExtinctionScale = height_fog->VolumetricFogExtinctionScale;
-	height_fog_params.VolumetricFogDistance = height_fog->VolumetricFogDistance;
-	height_fog_params.VolumetricFogStartDistance = height_fog->VolumetricFogStartDistance;
-	height_fog_params.VolumetricFogNearFadeInDistance = height_fog->VolumetricFogNearFadeInDistance;
-	height_fog_params.VolumetricFogStaticLightingScatteringIntensity = height_fog->VolumetricFogStaticLightingScatteringIntensity;
-	height_fog_params.bOverrideLightColorsWithFogInscatteringColors = height_fog->bOverrideLightColorsWithFogInscatteringColors;
+	height_fog_params->FogDensity = height_fog->FogDensity;
+	height_fog_params->FogHeightFalloff = height_fog->FogHeightFalloff;
+	height_fog_params->SecondFogData.FogDensity = height_fog->SecondFogData.FogDensity;
+	height_fog_params->SecondFogData.FogHeightFalloff = height_fog->SecondFogData.FogHeightFalloff;
+	height_fog_params->SecondFogData.FogHeightOffset = height_fog->SecondFogData.FogHeightOffset;
+	height_fog_params->FogInscatteringLuminance = height_fog->FogInscatteringLuminance;
+	height_fog_params->SkyAtmosphereAmbientContributionColorScale = height_fog->SkyAtmosphereAmbientContributionColorScale;
+	height_fog_params->InscatteringColorCubemap = height_fog->InscatteringColorCubemap;
+	height_fog_params->InscatteringColorCubemapAngle = height_fog->InscatteringColorCubemapAngle;
+	height_fog_params->InscatteringTextureTint = height_fog->InscatteringTextureTint;
+	height_fog_params->FullyDirectionalInscatteringColorDistance = height_fog->FullyDirectionalInscatteringColorDistance;
+	height_fog_params->NonDirectionalInscatteringColorDistance = height_fog->NonDirectionalInscatteringColorDistance;
+	height_fog_params->DirectionalInscatteringExponent = height_fog->DirectionalInscatteringExponent;
+	height_fog_params->DirectionalInscatteringStartDistance = height_fog->DirectionalInscatteringStartDistance;
+	height_fog_params->DirectionalInscatteringLuminance = height_fog->DirectionalInscatteringLuminance;
+	height_fog_params->FogMaxOpacity = height_fog->FogMaxOpacity;
+	height_fog_params->StartDistance = height_fog->StartDistance;
+	height_fog_params->FogCutoffDistance = height_fog->FogCutoffDistance;
+	height_fog_params->bEnableVolumetricFog = height_fog->bEnableVolumetricFog;
+	height_fog_params->VolumetricFogScatteringDistribution = height_fog->VolumetricFogScatteringDistribution;
+	height_fog_params->VolumetricFogAlbedo = height_fog->VolumetricFogAlbedo;
+	height_fog_params->VolumetricFogEmissive = height_fog->VolumetricFogEmissive;
+	height_fog_params->VolumetricFogExtinctionScale = height_fog->VolumetricFogExtinctionScale;
+	height_fog_params->VolumetricFogDistance = height_fog->VolumetricFogDistance;
+	height_fog_params->VolumetricFogStartDistance = height_fog->VolumetricFogStartDistance;
+	height_fog_params->VolumetricFogNearFadeInDistance = height_fog->VolumetricFogNearFadeInDistance;
+	height_fog_params->VolumetricFogStaticLightingScatteringIntensity = height_fog->VolumetricFogStaticLightingScatteringIntensity;
+	height_fog_params->bOverrideLightColorsWithFogInscatteringColors = height_fog->bOverrideLightColorsWithFogInscatteringColors;
 
 	return height_fog_params;
 }
 
-UUELightData::SkyAtmosphereParameters UUELightData::GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere)
+FSkyAtmosphereParameters* FSkyAtmosphereParameters::GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere)
 {
-	SkyAtmosphereParameters sky_atmosphere_fog_params;
+	FSkyAtmosphereParameters* sky_atmosphere_fog_params;
 
-	sky_atmosphere_fog_params.TransformMode = sky_atmosphere->TransformMode;
-	sky_atmosphere_fog_params.BottomRadius = sky_atmosphere->BottomRadius;
-	sky_atmosphere_fog_params.GroundAlbedo = sky_atmosphere->GroundAlbedo;
-	sky_atmosphere_fog_params.AtmosphereHeight = sky_atmosphere->AtmosphereHeight;
-	sky_atmosphere_fog_params.MultiScatteringFactor = sky_atmosphere->MultiScatteringFactor;
-	sky_atmosphere_fog_params.TraceSampleCountScale = sky_atmosphere->TraceSampleCountScale;
-	sky_atmosphere_fog_params.RayleighScatteringScale = sky_atmosphere->RayleighScatteringScale;
-	sky_atmosphere_fog_params.RayleighScattering = sky_atmosphere->RayleighScattering;
-	sky_atmosphere_fog_params.RayleighExponentialDistribution = sky_atmosphere->RayleighExponentialDistribution;
-	sky_atmosphere_fog_params.MieScatteringScale = sky_atmosphere->MieScatteringScale;
-	sky_atmosphere_fog_params.MieScattering = sky_atmosphere->MieScattering;
-	sky_atmosphere_fog_params.MieAbsorptionScale = sky_atmosphere->MieAbsorptionScale;
-	sky_atmosphere_fog_params.MieAbsorption = sky_atmosphere->MieAbsorption;
-	sky_atmosphere_fog_params.MieAnisotropy = sky_atmosphere->MieAnisotropy;
-	sky_atmosphere_fog_params.MieExponentialDistribution = sky_atmosphere->MieExponentialDistribution;
-	sky_atmosphere_fog_params.OtherAbsorptionScale = sky_atmosphere->OtherAbsorptionScale;
-	sky_atmosphere_fog_params.OtherAbsorption = sky_atmosphere->OtherAbsorption;
-	sky_atmosphere_fog_params.OtherTentDistribution.TipAltitude = sky_atmosphere->OtherTentDistribution.TipAltitude;
-	sky_atmosphere_fog_params.OtherTentDistribution.TipValue = sky_atmosphere->OtherTentDistribution.TipValue;
-	sky_atmosphere_fog_params.OtherTentDistribution.Width = sky_atmosphere->OtherTentDistribution.Width;
-	sky_atmosphere_fog_params.SkyLuminanceFactor = sky_atmosphere->SkyLuminanceFactor;
-	sky_atmosphere_fog_params.AerialPespectiveViewDistanceScale = sky_atmosphere->AerialPespectiveViewDistanceScale;
-	sky_atmosphere_fog_params.HeightFogContribution = sky_atmosphere->HeightFogContribution;
-	sky_atmosphere_fog_params.TransmittanceMinLightElevationAngle = sky_atmosphere->TransmittanceMinLightElevationAngle;
-	sky_atmosphere_fog_params.AerialPerspectiveStartDepth = sky_atmosphere->AerialPerspectiveStartDepth;
+	sky_atmosphere_fog_params->TransformMode = sky_atmosphere->TransformMode;
+	sky_atmosphere_fog_params->BottomRadius = sky_atmosphere->BottomRadius;
+	sky_atmosphere_fog_params->GroundAlbedo = sky_atmosphere->GroundAlbedo;
+	sky_atmosphere_fog_params->AtmosphereHeight = sky_atmosphere->AtmosphereHeight;
+	sky_atmosphere_fog_params->MultiScatteringFactor = sky_atmosphere->MultiScatteringFactor;
+	sky_atmosphere_fog_params->TraceSampleCountScale = sky_atmosphere->TraceSampleCountScale;
+	sky_atmosphere_fog_params->RayleighScatteringScale = sky_atmosphere->RayleighScatteringScale;
+	sky_atmosphere_fog_params->RayleighScattering = sky_atmosphere->RayleighScattering;
+	sky_atmosphere_fog_params->RayleighExponentialDistribution = sky_atmosphere->RayleighExponentialDistribution;
+	sky_atmosphere_fog_params->MieScatteringScale = sky_atmosphere->MieScatteringScale;
+	sky_atmosphere_fog_params->MieScattering = sky_atmosphere->MieScattering;
+	sky_atmosphere_fog_params->MieAbsorptionScale = sky_atmosphere->MieAbsorptionScale;
+	sky_atmosphere_fog_params->MieAbsorption = sky_atmosphere->MieAbsorption;
+	sky_atmosphere_fog_params->MieAnisotropy = sky_atmosphere->MieAnisotropy;
+	sky_atmosphere_fog_params->MieExponentialDistribution = sky_atmosphere->MieExponentialDistribution;
+	sky_atmosphere_fog_params->OtherAbsorptionScale = sky_atmosphere->OtherAbsorptionScale;
+	sky_atmosphere_fog_params->OtherAbsorption = sky_atmosphere->OtherAbsorption;
+	sky_atmosphere_fog_params->OtherTentDistribution.TipAltitude = sky_atmosphere->OtherTentDistribution.TipAltitude;
+	sky_atmosphere_fog_params->OtherTentDistribution.TipValue = sky_atmosphere->OtherTentDistribution.TipValue;
+	sky_atmosphere_fog_params->OtherTentDistribution.Width = sky_atmosphere->OtherTentDistribution.Width;
+	sky_atmosphere_fog_params->SkyLuminanceFactor = sky_atmosphere->SkyLuminanceFactor;
+	sky_atmosphere_fog_params->AerialPespectiveViewDistanceScale = sky_atmosphere->AerialPespectiveViewDistanceScale;
+	sky_atmosphere_fog_params->HeightFogContribution = sky_atmosphere->HeightFogContribution;
+	sky_atmosphere_fog_params->TransmittanceMinLightElevationAngle = sky_atmosphere->TransmittanceMinLightElevationAngle;
+	sky_atmosphere_fog_params->AerialPerspectiveStartDepth = sky_atmosphere->AerialPerspectiveStartDepth;
 
 	return sky_atmosphere_fog_params;
 }
-
+/*
 UUELightData::PostProcessParameters UUELightData::GetPostProcessParameters(UPostProcessComponent* post_prcess)
 {
 	PostProcessParameters post_process_params;
@@ -803,3 +803,4 @@ UUELightData::BrushSettingsParameters UUELightData::GetBrushSettingsParameters(A
 
 	return brush_setting_params;
 }
+*/
