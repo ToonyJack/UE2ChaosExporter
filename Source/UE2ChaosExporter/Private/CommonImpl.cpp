@@ -5,7 +5,7 @@
 #include <Kismet/GameplayStatics.h>
 #include <Selection.h>
 
-TArray<AActor*> UCommonImpl::GetCurrentLevelAllActor()
+TArray<AActor*> FCommonImpl::GetCurrentLevelAllActor()
 {
 	TArray<AActor*> current_level_all_actors;
     bool any_actor_selected = false;

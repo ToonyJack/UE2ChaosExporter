@@ -4,17 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
-#include "CommonImpl.generated.h"
 
-/**
- * 
- */
-UCLASS()
-class UE2CHAOSEXPORTER_API UCommonImpl : public UObject
+
+class FCommonImpl
 {
-	GENERATED_BODY()
-
+	
 public:
+	enum class EActorType
+	{
+		DirectionalLight,
+		PointLight,
+		SpotLight,
+		RectLight,
+		SkyLight,
+		HeightFog,
+		SkyAtmosphere,
+		PostPrcess
+	};
+
 	TArray<AActor*> GetCurrentLevelAllActor();
 	
 };

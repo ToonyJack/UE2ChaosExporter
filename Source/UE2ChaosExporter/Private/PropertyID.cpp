@@ -6,16 +6,23 @@
 #include <iostream>
 #include <random>
 
-bool FPropertyID::IsExist(TArray<FPropertyID>& array, FPropertyID propertyID)
+bool FPropertyID::IsExist(TArray<uint32>& array, uint32 propertyID)
 {
-    return std::find(array.begin(), array.end(), propertyID) == array.end();
+    for (int i = 0; i < array.Num(); i++)
+    {
+        if (array[i] == propertyID)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
-const FPropertyID FPropertyID::GeneratePropertyID(uint32 min, uint32 max)
+uint32 FPropertyID::GeneratePropertyID(const uint32 min, const uint32 max)
 {
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<FPropertyID> dist(min, max);
+    std::uniform_int_distribution<uint32> dist(min, max);
 
     return dist(gen);
 }

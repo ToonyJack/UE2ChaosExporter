@@ -8,9 +8,9 @@
 #include <Kismet/GameplayStatics.h>
 
 
-UUELightData::LightBaseParameters UUELightData::GetLightBaseParameters(ULightComponent* light)
+FLightBaseParameters UUELightData::GetLightBaseParameters(ULightComponent* light)
 {
-	LightBaseParameters light_base_params;
+	FLightBaseParameters light_base_params;
 
 	light_base_params.Intensity = light->Intensity;
 	light_base_params.LightColor = light->LightColor;

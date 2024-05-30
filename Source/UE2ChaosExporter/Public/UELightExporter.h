@@ -18,9 +18,67 @@
 #include "UELightExporter.generated.h"
 
 
-/**
- * 
- */
+
+	/// <summary>
+	/// Common Light Parameter Struct
+	/// </summary>
+USTRUCT()
+struct FLightBaseParameters
+{
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere)
+	float Intensity;
+
+	UPROPERTY(EditAnywhere)
+	FColor LightColor;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bAffectsWorld;
+
+	UPROPERTY(EditAnywhere)
+	uint32 CastShadows;
+
+	UPROPERTY(EditAnywhere)
+	uint32 CastStaticShadows;
+
+	UPROPERTY(EditAnywhere)
+	uint32 CastDynamicShadows;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bAffectTranslucentLighting;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bTransmission;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bCastVolumetricShadow;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bCastDeepShadow;
+
+	UPROPERTY(EditAnywhere)
+	TEnumAsByte<ECastRayTracedShadow::Type> CastRaytracedShadow;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bAffectReflection;
+
+	UPROPERTY(EditAnywhere)
+	uint32 bAffectGlobalIllumination;
+
+	UPROPERTY(EditAnywhere)
+	float DeepShadowLayerDistribution;
+
+	UPROPERTY(EditAnywhere)
+	float IndirectLightingIntensity;
+
+	UPROPERTY(EditAnywhere)
+	float VolumetricScatteringIntensity;
+
+	UPROPERTY(EditAnywhere)
+	int SamplesPerPixel;
+};
+
 UCLASS()
 class UE2CHAOSEXPORTER_API UUELightData : public UObject
 {
@@ -28,30 +86,7 @@ class UE2CHAOSEXPORTER_API UUELightData : public UObject
 
 public:
 
-	/// <summary>
-	/// Common Light Parameter Struct
-	/// </summary>
-	
-	struct LightBaseParameters
-	{
-		float Intensity;
-		FColor LightColor;
-		uint32 bAffectsWorld;
-		uint32 CastShadows;
-		uint32 CastStaticShadows;
-		uint32 CastDynamicShadows;
-		uint32 bAffectTranslucentLighting;
-		uint32 bTransmission;
-		uint32 bCastVolumetricShadow;
-		uint32 bCastDeepShadow;
-		TEnumAsByte<ECastRayTracedShadow::Type> CastRaytracedShadow;
-		uint32 bAffectReflection;
-		uint32 bAffectGlobalIllumination;
-		float DeepShadowLayerDistribution;
-		float IndirectLightingIntensity;
-		float VolumetricScatteringIntensity;
-		int SamplesPerPixel;
-	};
+
 	
 	struct LightParameters
 	{
@@ -693,7 +728,7 @@ public:
 
 public:
 
-	LightBaseParameters GetLightBaseParameters(ULightComponent* light);
+	FLightBaseParameters GetLightBaseParameters(ULightComponent* light);
 	LightParameters GetLightParameters(ULightComponent* light);
 	LocalLightParameters GetLocalLightParameters(ULocalLightComponent* light);
 

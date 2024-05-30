@@ -16,5 +16,4 @@ class UE2CHAOSEXPORTER_API USceneDataContextProxy : public UObject
 	GENERATED_BODY()
 	
 	void WriteLightDatatoJsonData(UUELightData* light_data, TArray<AActor*> actor_array);
-	void WriteDirectionalLightDatatoJsonData(UUELightData* light_data, TArray<ULightComponent*> light_array);
 };

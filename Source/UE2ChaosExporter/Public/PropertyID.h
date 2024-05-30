@@ -6,29 +6,27 @@
 #include <algorithm>
 #include <iostream>
 #include "UObject/NoExportTypes.h"
-#include "PropertyID.generated.h"
 
-/**
- * 
- */
-
-UCLASS()
-class UE2CHAOSEXPORTER_API FPropertyID
+class FPropertyID
 {
 
 public:
+	uint32 LightMinPropertyID = 1000000000;
+	uint32 LightMaxPropertyID = 1999999999;
+
+	FPropertyID() {}
 
 	FPropertyID(uint32 value) : value_(value) {};
 
 	operator uint32() const { return value_; }
 
-	static TArray<FPropertyID> PropertyID_array;
+	static TArray<uint32> propertyID_array;
 
-	static bool IsArrayEmpty(TArray<FPropertyID>& array) { return array.Num() == 0; }
+	bool IsArrayEmpty(TArray<uint32>& array) { return array.Num() == 0; }
 
-	static bool IsExist(TArray<FPropertyID>& array, FPropertyID propertyID) { return std::find(array.begin(), array.end(), propertyID) != array.end(); }
+	bool IsExist(TArray<uint32>& array, uint32 propertyID);
 
-	const static FPropertyID GeneratePropertyID(uint32 min, uint32 max);
+	uint32 GeneratePropertyID(const uint32 min, const uint32 max);
 private:
 
 	uint32 value_;
