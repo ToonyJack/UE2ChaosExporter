@@ -26,3 +26,25 @@ uint32 FPropertyID::GeneratePropertyID(const uint32 min, const uint32 max)
 
     return dist(gen);
 }
+
+uint32 FPropertyID::SpawnActorPropertyID()
+{
+	if (IsArrayEmpty(propertyID_array))
+	{
+		uint32 outPropertyID = GeneratePropertyID(LightMinPropertyID, LightMaxPropertyID);
+		propertyID_array.Add(outPropertyID);
+		return outPropertyID;
+	}
+	else
+	{
+		while (true)
+		{
+			uint32 outPropertyID = GeneratePropertyID(LightMinPropertyID, LightMaxPropertyID);
+			if (IsExist(propertyID_array, outPropertyID))
+			{
+				propertyID_array.Add(outPropertyID);
+				return outPropertyID;
+			}
+		}
+	}
+}

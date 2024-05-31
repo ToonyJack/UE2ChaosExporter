@@ -11,8 +11,8 @@ class FPropertyID
 {
 
 public:
-	uint32 LightMinPropertyID = 1000000000;
-	uint32 LightMaxPropertyID = 1999999999;
+	const static uint32 LightMinPropertyID = 1000000000;
+	const static uint32 LightMaxPropertyID = 4000000000;
 
 	FPropertyID() {}
 
@@ -20,13 +20,17 @@ public:
 
 	operator uint32() const { return value_; }
 
+	static uint32 SpawnActorPropertyID();
+
 	static TArray<uint32> propertyID_array;
 
-	bool IsArrayEmpty(TArray<uint32>& array) { return array.Num() == 0; }
+	static bool IsArrayEmpty(TArray<uint32>& array) { return array.Num() == 0; }
 
-	bool IsExist(TArray<uint32>& array, uint32 propertyID);
+	static bool IsExist(TArray<uint32>& array, uint32 propertyID);
 
-	uint32 GeneratePropertyID(const uint32 min, const uint32 max);
+	static uint32 GeneratePropertyID(const uint32 min, const uint32 max);
+
+	
 private:
 
 	uint32 value_;

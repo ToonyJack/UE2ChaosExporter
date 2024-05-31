@@ -2,10 +2,9 @@
 	"RemapUnityFiles": 
 	{
 		"Module.UE2ChaosExporter.cpp.obj": [
-			"CommonImpl.gen.cpp.obj",
-			"SceneDataContextProxy.gen.cpp.obj",
+			"ActorData.gen.cpp.obj",
 			"UE2ChaosExporter.init.gen.cpp.obj",
-			"UELightExporter.gen.cpp.obj",
+			"ActorData.cpp.obj",
 			"CommonImpl.cpp.obj",
 			"JsonData.cpp.obj",
 			"PropertyID.cpp.obj",

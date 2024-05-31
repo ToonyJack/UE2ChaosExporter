@@ -3,8 +3,7 @@
 
 #include "SceneDataContextProxy.h"
 
-void USceneDataContextProxy::WriteLightDatatoJsonData(FUELightData* light_data, TArray<AActor*> actor_array)
+void USceneDataContextProxy::WriteSceneDatatoJsonFile()
 {
-	
+	//LightDataString = 
 }
-

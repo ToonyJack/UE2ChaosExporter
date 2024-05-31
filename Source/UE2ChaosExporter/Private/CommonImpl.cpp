@@ -24,3 +24,81 @@ TArray<AActor*> FCommonImpl::GetCurrentLevelAllActor()
 	
 	return current_level_all_actors;
 }
+
+FString FCommonImpl::FromInt(int value)
+{
+    return FString::Printf(TEXT("%d"), value);
+}
+
+FString FCommonImpl::FromFloat(float value)
+{
+    return FString::Printf(TEXT("%s"), value);
+}
+
+FString FCommonImpl::FromBool(bool value)
+{
+    return value ? "True" : "False";
+}
+
+FString FCommonImpl::FromInt32(int32 value)
+{
+    return FString::Printf(TEXT("%d"), value);
+}
+
+FString FCommonImpl::FromUInt32(uint32 value)
+{
+    return FString::Printf(TEXT("%d"), value);
+}
+
+FString FCommonImpl::FromColor(FColor value)
+{
+    return FString::Printf(TEXT("%d,%d,%d,%d"), value.R, value.G, value.B, value.A);
+}
+
+FString FCommonImpl::FromLinearColor(FLinearColor value)
+{
+    return FString::Printf(TEXT("%s,%s,%s,%s"), value.R, value.G, value.B, value.A);
+}
+
+FString FCommonImpl::FromVector(FVector value)
+{
+    return FString::Printf(TEXT("%s,%s,%s"), value.X, value.Y, value.Z);
+}
+
+FString FCommonImpl::FromStruct(FLightingChannels value)
+{
+    if (value.bChannel0)
+    {
+        return "0";
+    }
+    else if (value.bChannel1)
+    {
+        return "1";
+    }
+    else
+    {
+        return "2";
+    }
+}
+
+FString FCommonImpl::FromLightUnits(ELightUnits value)
+{
+    if (value == ELightUnits::Unitless)
+    {
+        return "Unitless";
+    }
+    else if (value == ELightUnits::Candelas)
+    {
+        return "Candelas";
+    }
+    else if (value == ELightUnits::Lumens)
+    {
+        return "Lumens";
+    }
+    else
+    {
+        return "EV";
+    }
+}
+
+

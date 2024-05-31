@@ -5,15 +5,19 @@
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include <UELightExporter.h>
-#include "SceneDataContextProxy.generated.h"
 
-/**
- * 
- */
-UCLASS()
-class UE2CHAOSEXPORTER_API USceneDataContextProxy : public UObject
+class USceneDataContextProxy
 {
-	GENERATED_BODY()
-	
-	void WriteLightDatatoJsonData(FUELightData* light_data, TArray<AActor*> actor_array);
+public:
+	TMap<FString, FString> SceneDataMap;
+
+	FString StaticMeshDataString;
+	FString SkeletalMeshDataString;
+	FString LightDataString;
+	FString HeightFogDataString;
+	FString SkyAtmosphereDataString;
+	FString PostProcessDataString;
+	FString DecalDataString;
+
+	void WriteSceneDatatoJsonFile();
 };

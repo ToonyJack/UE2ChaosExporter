@@ -10,7 +10,7 @@
 
 FLightBaseParameters* FLightBaseParameters::GetLightBaseParameters(ULightComponent* light)
 {
-	FLightBaseParameters* light_base_params;
+	FLightBaseParameters* light_base_params = nullptr;
 
 	light_base_params->Intensity = light->Intensity;
 	light_base_params->LightColor = light->LightColor;
@@ -35,7 +35,7 @@ FLightBaseParameters* FLightBaseParameters::GetLightBaseParameters(ULightCompone
 
 FLightParameters* FLightParameters::GetLightParameters(ULightComponent* light)
 {
-	FLightParameters* light_params;
+	FLightParameters* light_params = nullptr;
 
 	light_params->bUseTemperature = light->bUseTemperature;
 	light_params->Temperature = light->Temperature;
@@ -75,7 +75,7 @@ FLightParameters* FLightParameters::GetLightParameters(ULightComponent* light)
 
 FLocalLightParameters* FLocalLightParameters::GetLocalLightParameters(ULocalLightComponent* light)
 {
-	FLocalLightParameters* local_light_params;
+	FLocalLightParameters* local_light_params = nullptr;
 
 	local_light_params->IntensityUnits = light->IntensityUnits;
 	local_light_params->InverseExposureBlend = light->InverseExposureBlend;
@@ -87,7 +87,7 @@ FLocalLightParameters* FLocalLightParameters::GetLocalLightParameters(ULocalLigh
 
 FDirectionalLightParameters* FDirectionalLightParameters::GetDirectionalLightParameters(UDirectionalLightComponent* light)
 {
-	FDirectionalLightParameters* directional_light_params;
+	FDirectionalLightParameters* directional_light_params = nullptr;
 
 	directional_light_params->LightSourceAngle = light->LightSourceAngle;
 	directional_light_params->LightSourceSoftAngle = light->LightSourceSoftAngle;
@@ -132,7 +132,7 @@ FDirectionalLightParameters* FDirectionalLightParameters::GetDirectionalLightPar
 
 FPointLightParameters* FPointLightParameters::GetPointLightParameters(UPointLightComponent* light)
 {
-	FPointLightParameters* point_light_params;
+	FPointLightParameters* point_light_params = nullptr;
 
 	point_light_params->bUseInverseSquaredFalloff = light->bUseInverseSquaredFalloff;
 	point_light_params->LightFalloffExponent = light->LightFalloffExponent;
@@ -145,7 +145,7 @@ FPointLightParameters* FPointLightParameters::GetPointLightParameters(UPointLigh
 
 FSpotLightParameters* FSpotLightParameters::GetSpotLightParameters(USpotLightComponent* light)
 {
-	FSpotLightParameters* spot_light_params;
+	FSpotLightParameters* spot_light_params = nullptr;
 
 	spot_light_params->InnerConeAngle = light->InnerConeAngle;
 	spot_light_params->OuterConeAngle = light->OuterConeAngle;
@@ -155,7 +155,7 @@ FSpotLightParameters* FSpotLightParameters::GetSpotLightParameters(USpotLightCom
 
 FRectLightParameters* FRectLightParameters::GetRectLightParameters(URectLightComponent* light)
 {
-	FRectLightParameters* rect_light_params;
+	FRectLightParameters* rect_light_params = nullptr;
 
 	rect_light_params->SourceWidth = light->SourceWidth;
 	rect_light_params->SourceHeight = light->SourceHeight;
@@ -168,7 +168,7 @@ FRectLightParameters* FRectLightParameters::GetRectLightParameters(URectLightCom
 
 FSkyLightParameters* FSkyLightParameters::GetSkyLightParameters(USkyLightComponent* light)
 {
-	FSkyLightParameters* sky_light_params;
+	FSkyLightParameters* sky_light_params = nullptr;
 
 	sky_light_params->bRealTimeCapture = light->bRealTimeCapture;
 	sky_light_params->SourceType = light->SourceType;
@@ -197,7 +197,7 @@ FSkyLightParameters* FSkyLightParameters::GetSkyLightParameters(USkyLightCompone
 
 FHeightFogParameters* FHeightFogParameters::GetHeightFogParameters(UExponentialHeightFogComponent* height_fog)
 {
-	FHeightFogParameters* height_fog_params;
+	FHeightFogParameters* height_fog_params = nullptr;
 
 	height_fog_params->FogDensity = height_fog->FogDensity;
 	height_fog_params->FogHeightFalloff = height_fog->FogHeightFalloff;
@@ -233,7 +233,7 @@ FHeightFogParameters* FHeightFogParameters::GetHeightFogParameters(UExponentialH
 
 FSkyAtmosphereParameters* FSkyAtmosphereParameters::GetSkyAtmosphereParameters(USkyAtmosphereComponent* sky_atmosphere)
 {
-	FSkyAtmosphereParameters* sky_atmosphere_fog_params;
+	FSkyAtmosphereParameters* sky_atmosphere_fog_params = nullptr;
 
 	sky_atmosphere_fog_params->TransformMode = sky_atmosphere->TransformMode;
 	sky_atmosphere_fog_params->BottomRadius = sky_atmosphere->BottomRadius;

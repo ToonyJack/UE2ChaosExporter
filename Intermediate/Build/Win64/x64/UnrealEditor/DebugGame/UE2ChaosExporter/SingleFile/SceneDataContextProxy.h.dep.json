@@ -861,8 +861,9 @@
             "f:\\program files\\unrealengine\\ue_5.3\\engine\\source\\runtime\\core\\public\\math\\shmath.h",
             "f:\\program files\\unrealengine\\ue_5.3\\engine\\source\\runtime\\rendercore\\public\\renderdeferredcleanup.h",
             "f:\\program files\\unrealengine\\ue_5.3\\engine\\intermediate\\build\\win64\\unrealeditor\\inc\\engine\\uht\\skylightcomponent.generated.h",
-            "g:\\unrealproject\\ueplugins\\plugins\\ue2chaosexporter\\intermediate\\build\\win64\\unrealeditor\\inc\\ue2chaosexporter\\uht\\uelightexporter.generated.h",
-            "g:\\unrealproject\\ueplugins\\plugins\\ue2chaosexporter\\intermediate\\build\\win64\\unrealeditor\\inc\\ue2chaosexporter\\uht\\scenedatacontextproxy.generated.h"
+            "g:\\unrealproject\\ueplugins\\plugins\\ue2chaosexporter\\source\\ue2chaosexporter\\public\\actordata.h",
+            "g:\\unrealproject\\ueplugins\\plugins\\ue2chaosexporter\\intermediate\\build\\win64\\unrealeditor\\inc\\ue2chaosexporter\\uht\\actordata.generated.h",
+            "g:\\unrealproject\\ueplugins\\plugins\\ue2chaosexporter\\intermediate\\build\\win64\\unrealeditor\\inc\\ue2chaosexporter\\uht\\uelightexporter.generated.h"
         ],
         "ImportedModules": [],
         "ImportedHeaderUnits": []

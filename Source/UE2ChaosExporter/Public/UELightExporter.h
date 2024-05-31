@@ -15,67 +15,110 @@
 #include "Components/VolumetricCloudComponent.h"
 #include <Components/SkyAtmosphereComponent.h>
 #include "Components/SkyLightComponent.h"
-#include "UELightExporter.generated.h"
+#include "ActorData.h"
 
+
+
+class FUELightData : public FActorData
+{
+
+public:
+
+	FUELightData(){}
+
+	/*
+	PostProcessParameters GetPostProcessParameters(UPostProcessComponent* post_prcess);
+	LenParameters GetLenParameters(UPostProcessComponent* post_prcess);
+	ColorGradingParameters GetColorGradingParameters(UPostProcessComponent* post_prcess);
+	FilmParameters GetFilmParameters(UPostProcessComponent* post_prcess);
+	GlobalIluminationParameters GetGlobalIluminationParameters(UPostProcessComponent* post_prcess);
+	ReflectionsParameters GetReflectionsParameters(UPostProcessComponent* post_prcess);
+	RenderFeaturesParameters GetRenderFeaturesParameters(UPostProcessComponent* post_prcess);
+	FilmGrainParameters GetFilmGrainParameters(UPostProcessComponent* post_prcess);
+	PathTracingParameters GetPathTracingParameters(UPostProcessComponent* post_prcess);
+	PostProcessVolumSettingsParameters GetPostProcessVolumSettingsParameters(UPostProcessComponent* post_prcess);
+	BrushSettingsParameters GetBrushSettingsParameters(AActor* actor);
+
+
+
+private:
+
+	BloomParameters GetBloomParameters(UPostProcessComponent* post_prcess);
+	ExposureParameters GetExposureParameters(UPostProcessComponent* post_prcess);
+	ChromaticAberrationParameters GetChromaticAberrationParameters(UPostProcessComponent* post_prcess);
+	DirtMaskParameters GetDirtMaskParameters(UPostProcessComponent* post_prcess);
+	CameraParameters GetCameraParameters(UPostProcessComponent* post_prcess);
+	LensFlaresParameters GetLensFlaresParameters(UPostProcessComponent* post_prcess);
+	ImageEffectsParameters GetImageEffectsParameters(UPostProcessComponent* post_prcess);
+	DepthofFieldParameters GetDepthofFieldParameters(UPostProcessComponent* post_prcess);
+
+	TemperatureParameters GetTemperatureParameters(UPostProcessComponent* post_prcess);
+	GlobalParameters GetGlobalParameters(UPostProcessComponent* post_prcess);
+	ShadowsParameters GetShadowsParameters(UPostProcessComponent* post_prcess);
+	MidtonesParameters GetMidtonesParameters(UPostProcessComponent* post_prcess);
+	HighlightsParameters GetHighlightsParameters(UPostProcessComponent* post_prcess);
+	MiscParameters GetMiscParameters(UPostProcessComponent* post_prcess);
+
+	LumenGlobalIluminationParameters GetLumenGlobalIluminationParameters(UPostProcessComponent* post_prcess);
+	RayTracingGlobalIluminationParameters GetRayTracingGlobalIluminationParameters(UPostProcessComponent* post_prcess);
+
+	LumenReflectionsParameters GetLumenReflectionsParameters(UPostProcessComponent* post_prcess);
+	ScreenSpaceReflectionsParameters GetScreenSpaceReflectionsParameters(UPostProcessComponent* post_prcess);
+	RayTracingReflectionsParameters GetRayTracingReflectionsParameters(UPostProcessComponent* post_prcess);
+
+	PostProcessMaterialsParameters GetPostProcessMaterialsParameters(UPostProcessComponent* post_prcess);
+	AmbientCubemapParameters GetAmbientCubemapParameters(UPostProcessComponent* post_prcess);
+	AmbientOcclusionParameters GetAmbientOcclusionParameters(UPostProcessComponent* post_prcess);
+	RayTracingAmbientOcclusionParameters GetRayTracingAmbientOcclusionParameters(UPostProcessComponent* post_prcess);
+	MotionBlurParameters GetMotionBlurParameters(UPostProcessComponent* post_prcess);
+	TranslucencyParameters GeTranslucencyParameters(UPostProcessComponent* post_prcess);
+	RayTracingTranslucencyParameters GetRayTracingTranslucencyParameters(UPostProcessComponent* post_prcess);
+	*/
+};
 
 
 /// <summary>
 /// Common Light Parameter Class
 /// </summary>
-UCLASS()
 class FLightBaseParameters : public FUELightData
 {
-	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
+public:
+
+	FLightBaseParameters() {};
+
 	float Intensity;
 
-	UPROPERTY(EditAnywhere)
 	FColor LightColor;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bAffectsWorld;
 
-	UPROPERTY(EditAnywhere)
 	uint32 CastShadows;
 
-	UPROPERTY(EditAnywhere)
 	uint32 CastStaticShadows;
 
-	UPROPERTY(EditAnywhere)
 	uint32 CastDynamicShadows;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bAffectTranslucentLighting;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bTransmission;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bCastVolumetricShadow;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bCastDeepShadow;
 
-	UPROPERTY(EditAnywhere)
 	TEnumAsByte<ECastRayTracedShadow::Type> CastRaytracedShadow;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bAffectReflection;
 
-	UPROPERTY(EditAnywhere)
 	uint32 bAffectGlobalIllumination;
 
-	UPROPERTY(EditAnywhere)
 	float DeepShadowLayerDistribution;
 
-	UPROPERTY(EditAnywhere)
 	float IndirectLightingIntensity;
 
-	UPROPERTY(EditAnywhere)
 	float VolumetricScatteringIntensity;
 
-	UPROPERTY(EditAnywhere)
 	int SamplesPerPixel;
 
 public:
@@ -83,10 +126,12 @@ public:
 	FLightBaseParameters* GetLightBaseParameters(ULightComponent* light);
 };
 
-UCLASS()
 class FLightParameters : public FLightBaseParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	uint32 bUseTemperature;
@@ -188,10 +233,12 @@ public:
 	FLightParameters* GetLightParameters(ULightComponent* light);
 };
 
-UCLASS()
 class FLocalLightParameters : public FLightParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FLocalLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	ELightUnits IntensityUnits;
@@ -210,10 +257,11 @@ public:
 /// <summary>
 /// Directional Light Parameters Struct
 /// </summary>
-UCLASS()
 class FDirectionalLightParameters : public FLightParameters
 {
-	GENERATED_BODY()
+
+public:
+	FDirectionalLightParameters() {}
 
 	UPROPERTY(EditAnywhere)
 	float LightSourceAngle;
@@ -334,10 +382,12 @@ public:
 /// <summary>
 /// Point Light Parameters Struct
 /// </summary>
-UCLASS()
 class FPointLightParameters : public FLocalLightParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FPointLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	uint32 bUseInverseSquaredFalloff;
@@ -362,10 +412,12 @@ public:
 /// <summary>
 /// Spot Light Parameters Struct
 /// </summary>
-UCLASS()
 class FSpotLightParameters : public FPointLightParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FSpotLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	float InnerConeAngle;
@@ -381,10 +433,12 @@ public:
 /// <summary>
 /// Rect Light Parameters Struct
 /// </summary>
-UCLASS()
 class FRectLightParameters : public FLocalLightParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FRectLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	float SourceWidth;
@@ -409,10 +463,12 @@ public:
 /// <summary>
 /// Sky Light Parameters Struct
 /// </summary>
-UCLASS()
 class FSkyLightParameters : public FLightBaseParameters
 {
-	GENERATED_BODY()
+
+public:
+
+	FSkyLightParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	bool bRealTimeCapture;
@@ -486,10 +542,12 @@ public:
 /// <summary>
 /// Height Fog Parameters Struct
 /// </summary>
-UCLASS()
 class FHeightFogParameters : public FUELightData
 {
-	GENERATED_BODY()
+
+public:
+
+	FHeightFogParameters(){}
 
 	UPROPERTY(EditAnywhere)
 	float FogDensity;
@@ -578,12 +636,13 @@ public:
 /// <summary>
 /// SkyAtmosphere Fog Parameters Struct
 /// </summary>
-UCLASS()
 class FSkyAtmosphereParameters : public FUELightData
 {
-	GENERATED_BODY()
 
 public:
+
+	FSkyAtmosphereParameters(){}
+
 	UPROPERTY(EditAnywhere)
 	ESkyAtmosphereTransformMode TransformMode;
 
@@ -1086,61 +1145,3 @@ struct PostProcessParameters
 	BrushSettingsParameters BrushSettingsParams;
 };
 */
-
-
-UCLASS()
-class UE2CHAOSEXPORTER_API FUELightData
-{
-	GENERATED_BODY()
-
-public:
-
-	/*
-	PostProcessParameters GetPostProcessParameters(UPostProcessComponent* post_prcess);
-	LenParameters GetLenParameters(UPostProcessComponent* post_prcess);
-	ColorGradingParameters GetColorGradingParameters(UPostProcessComponent* post_prcess);
-	FilmParameters GetFilmParameters(UPostProcessComponent* post_prcess);
-	GlobalIluminationParameters GetGlobalIluminationParameters(UPostProcessComponent* post_prcess);
-	ReflectionsParameters GetReflectionsParameters(UPostProcessComponent* post_prcess);
-	RenderFeaturesParameters GetRenderFeaturesParameters(UPostProcessComponent* post_prcess);
-	FilmGrainParameters GetFilmGrainParameters(UPostProcessComponent* post_prcess);
-	PathTracingParameters GetPathTracingParameters(UPostProcessComponent* post_prcess);
-	PostProcessVolumSettingsParameters GetPostProcessVolumSettingsParameters(UPostProcessComponent* post_prcess);
-	BrushSettingsParameters GetBrushSettingsParameters(AActor* actor);
-
-
-	
-private:
-
-	BloomParameters GetBloomParameters(UPostProcessComponent* post_prcess);
-	ExposureParameters GetExposureParameters(UPostProcessComponent* post_prcess);
-	ChromaticAberrationParameters GetChromaticAberrationParameters(UPostProcessComponent* post_prcess);
-	DirtMaskParameters GetDirtMaskParameters(UPostProcessComponent* post_prcess);
-	CameraParameters GetCameraParameters(UPostProcessComponent* post_prcess);
-	LensFlaresParameters GetLensFlaresParameters(UPostProcessComponent* post_prcess);
-	ImageEffectsParameters GetImageEffectsParameters(UPostProcessComponent* post_prcess);
-	DepthofFieldParameters GetDepthofFieldParameters(UPostProcessComponent* post_prcess);
-
-	TemperatureParameters GetTemperatureParameters(UPostProcessComponent* post_prcess);
-	GlobalParameters GetGlobalParameters(UPostProcessComponent* post_prcess);
-	ShadowsParameters GetShadowsParameters(UPostProcessComponent* post_prcess);
-	MidtonesParameters GetMidtonesParameters(UPostProcessComponent* post_prcess);
-	HighlightsParameters GetHighlightsParameters(UPostProcessComponent* post_prcess);
-	MiscParameters GetMiscParameters(UPostProcessComponent* post_prcess);
-
-	LumenGlobalIluminationParameters GetLumenGlobalIluminationParameters(UPostProcessComponent* post_prcess);
-	RayTracingGlobalIluminationParameters GetRayTracingGlobalIluminationParameters(UPostProcessComponent* post_prcess);
-
-	LumenReflectionsParameters GetLumenReflectionsParameters(UPostProcessComponent* post_prcess);
-	ScreenSpaceReflectionsParameters GetScreenSpaceReflectionsParameters(UPostProcessComponent* post_prcess);
-	RayTracingReflectionsParameters GetRayTracingReflectionsParameters(UPostProcessComponent* post_prcess);
-
-	PostProcessMaterialsParameters GetPostProcessMaterialsParameters(UPostProcessComponent* post_prcess);
-	AmbientCubemapParameters GetAmbientCubemapParameters(UPostProcessComponent* post_prcess);
-	AmbientOcclusionParameters GetAmbientOcclusionParameters(UPostProcessComponent* post_prcess);
-	RayTracingAmbientOcclusionParameters GetRayTracingAmbientOcclusionParameters(UPostProcessComponent* post_prcess);
-	MotionBlurParameters GetMotionBlurParameters(UPostProcessComponent* post_prcess);
-	TranslucencyParameters GeTranslucencyParameters(UPostProcessComponent* post_prcess);
-	RayTracingTranslucencyParameters GetRayTracingTranslucencyParameters(UPostProcessComponent* post_prcess);
-	*/
-};
